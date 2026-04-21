@@ -8,35 +8,35 @@ import { Component } from '@angular/core';
         <div class="columns">
           <div>
             <h3>HackBurger</h3>
-            <p>Hambúrgueres artesanais entregues rápido, do jeito que você pediu.</p>
+            <p>{{ 'footer.tagline' | t }}</p>
           </div>
           <div>
-            <h4>Atendimento</h4>
-            <p>Seg a Dom · 18h às 23h</p>
+            <h4>{{ 'footer.support' | t }}</h4>
+            <p>{{ 'footer.hours' | t }}</p>
             <p>contato&#64;hackburger.com</p>
           </div>
           <div>
-            <h4>Links</h4>
-            <p><a routerLink="/catalog">Cardápio</a></p>
-            <p><a routerLink="/profile">Minha conta</a></p>
+            <h4>{{ 'footer.links' | t }}</h4>
+            <p><a routerLink="/catalog">{{ 'footer.menu' | t }}</a></p>
+            <p><a routerLink="/profile">{{ 'footer.account' | t }}</a></p>
           </div>
         </div>
         <div class="bottom">
-          <span>© {{ year }} HackBurger. Todos os direitos reservados.</span>
+          <span>© {{ year }} HackBurger. {{ 'footer.rights' | t }}</span>
           <div class="bottom-links">
             <a routerLink="/docs" class="foot-link" title="Documentação técnica">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
                 <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
               </svg>
-              <span>Documentação</span>
+              <span>{{ 'footer.docs' | t }}</span>
             </a>
             <a routerLink="/dev" class="foot-link dev-link" title="Sobre o desenvolvedor">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="16 18 22 12 16 6"/>
                 <polyline points="8 6 2 12 8 18"/>
               </svg>
-              <span>Desenvolvedor</span>
+              <span>{{ 'footer.developer' | t }}</span>
             </a>
           </div>
         </div>

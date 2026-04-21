@@ -34,6 +34,18 @@ const DICT: Record<Lang, Record<string, string>> = {
     'home.appHighlight': 'ECONOMIZE ATÉ 20%',
     'home.appDesc':
       'Curta seus burgers favoritos em qualquer lugar. Baixe nosso app e tenha ofertas exclusivas, pedido fácil e 20% de desconto na primeira compra.',
+
+    'footer.tagline': 'Hambúrgueres artesanais entregues rápido, do jeito que você pediu.',
+    'footer.support': 'Atendimento',
+    'footer.hours': 'Seg a Dom · 18h às 23h',
+    'footer.links': 'Links',
+    'footer.menu': 'Cardápio',
+    'footer.account': 'Minha conta',
+    'footer.rights': 'Todos os direitos reservados.',
+    'footer.docs': 'Documentação',
+    'footer.developer': 'Desenvolvedor',
+
+    'card.add': 'Adicionar',
   },
   en: {
     'nav.home': 'HOME',
@@ -65,6 +77,18 @@ const DICT: Record<Lang, Record<string, string>> = {
     'home.appHighlight': 'SAVE UP TO 20%',
     'home.appDesc':
       'Enjoy your favorite burgers anywhere. Download our app for exclusive deals, easy ordering and 20% off your first purchase.',
+
+    'footer.tagline': 'Artisan burgers delivered fast, exactly the way you ordered.',
+    'footer.support': 'Support',
+    'footer.hours': 'Mon–Sun · 6pm to 11pm',
+    'footer.links': 'Links',
+    'footer.menu': 'Menu',
+    'footer.account': 'My account',
+    'footer.rights': 'All rights reserved.',
+    'footer.docs': 'Documentation',
+    'footer.developer': 'Developer',
+
+    'card.add': 'Add',
   },
 };
 

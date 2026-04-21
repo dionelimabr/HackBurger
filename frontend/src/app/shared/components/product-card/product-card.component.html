@@ -16,7 +16,7 @@
     <div class="footer">
       <span class="price">{{ product.price | currencyBrl }}</span>
       <button class="add-btn" type="button" (click)="onAddToCart($event)" aria-label="Adicionar ao carrinho">
-        Adicionar
+        {{ 'card.add' | t }}
       </button>
     </div>
   </div>
