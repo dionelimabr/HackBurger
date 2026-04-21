@@ -4,18 +4,21 @@ import { createError } from '../middlewares/errorHandler.middleware';
 // Catalog of available challenges with their point values.
 // Adding/removing entries is safe — unknown keys are rejected.
 const CHALLENGE_CATALOG: Record<string, number> = {
+  // 1-star (Juice Shop inspired)
+  'scoreBoardChallenge':            10,
+  'privacyPolicyChallenge':         10,
+  'errorHandlingChallenge':         10,
+  'exposedMetricsChallenge':        10,
+  'domXssChallenge':                10,
+  'confidentialDocumentChallenge':  10,
+  'zeroStarsChallenge':             10,
+  'repetitiveRegistrationChallenge':10,
+  'missingEncodingChallenge':       10,
+  'outdatedAllowlistChallenge':     10,
+
+  // Exploration / meta
   'visit-developer-page': 10,
-  'open-leaderboard': 5,
   'first-purchase': 25,
-  'owasp-sqli-login': 50,
-  'owasp-xss-comment': 40,
-  'owasp-idor-order': 60,
-  'owasp-weak-crypto': 30,
-  'owasp-open-redirect': 20,
-  'owasp-csrf-profile': 45,
-  'owasp-broken-auth': 55,
-  'find-hidden-endpoint': 35,
-  'inspect-api-docs': 15,
 };
 
 export const ScoreService = {

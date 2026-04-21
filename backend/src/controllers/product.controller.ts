@@ -1,11 +1,22 @@
 import { Request, Response, NextFunction } from 'express';
 import { ProductService } from '../services/product.service';
 import { sendSuccess, sendCreated } from '../utils/response.util';
+import { awardChallenge } from '../utils/challenge.util';
+
+// Basic DOM-XSS payload detection on the search query. Matches common
+// vectors: <iframe>, <img onerror>, <svg onload>, <script>, javascript: URIs.
+const XSS_PATTERN = /(<\s*(iframe|script|img|svg|body|input|a)\b[^>]*\bon\w+\s*=|<\s*(iframe|script|svg)\b|javascript:\s*)/i;
 
 export const ProductController = {
   async getAll(req: Request, res: Response, next: NextFunction) {
     try {
       const { category, featured, search, page, limit } = req.query;
+
+      // CTF: DOM XSS challenge — user tried to inject HTML/JS in the search box.
+      if (typeof search === 'string' && XSS_PATTERN.test(search)) {
+        awardChallenge(req, 'domXssChallenge');
+      }
+
       const result = await ProductService.getAll({
         categorySlug: category as string,
         featured: featured === 'true',

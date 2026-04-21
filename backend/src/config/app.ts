@@ -7,7 +7,8 @@ import morgan from 'morgan';
 import { env } from './env';
 import { setupSwagger } from './swagger';
 import { errorHandler } from '../middlewares/errorHandler.middleware';
-import { metricsMiddleware } from '../metrics/prometheus';
+import { metricsMiddleware, metricsHandler } from '../metrics/prometheus';
+import { awardChallenge } from '../utils/challenge.util';
 import { UPLOADS_ROOT } from '../middlewares/upload.middleware';
 
 // Routes
@@ -19,6 +20,11 @@ import userRoutes    from '../routes/user.routes';
 import paymentRoutes from '../routes/payment.routes';
 import adminRoutes   from '../routes/admin.routes';
 import scoreRoutes   from '../routes/score.routes';
+import legalRoutes   from '../routes/legal.routes';
+import debugRoutes   from '../routes/debug.routes';
+import ftpRoutes     from '../routes/ftp.routes';
+import feedbackRoutes from '../routes/feedback.routes';
+import redirectRoutes from '../routes/redirect.routes';
 
 const app: Application = express();
 
@@ -50,6 +56,19 @@ app.use('/api/users',    userRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/admin',    adminRoutes);
 app.use('/api/scores',   scoreRoutes);
+app.use('/api/legal',    legalRoutes);
+app.use('/api/debug',    debugRoutes);
+app.use('/api/feedback', feedbackRoutes);
+
+// Intentionally non-"/api" paths — these are part of the CTF exploration.
+app.use('/ftp',       ftpRoutes);
+app.use('/redirect',  redirectRoutes);
+
+// Prometheus metrics (intentionally public — CTF: Exposed Metrics)
+app.get('/metrics', (req, res) => {
+  awardChallenge(req, 'exposedMetricsChallenge');
+  return metricsHandler(req, res);
+});
 
 // Swagger docs
 setupSwagger(app);

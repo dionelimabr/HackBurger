@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ProductService } from '../../core/services/product.service';
 import { CartService } from '../../core/services/cart.service';
 import { AuthService } from '../../core/auth/auth.service';
@@ -15,7 +16,8 @@ export class CatalogComponent implements OnInit {
   categories: any[] = [];
   selectedCategory = '';
   searchQuery = '';
-  
+  searchHtml: SafeHtml = '';
+
   constructor(
     private productService: ProductService,
     private cartService: CartService,
@@ -23,12 +25,15 @@ export class CatalogComponent implements OnInit {
     private toast: ToastService,
     private router: Router,
     private route: ActivatedRoute,
+    private sanitizer: DomSanitizer,
   ) {}
 
   ngOnInit(): void {
     this.loadCategories();
     this.route.queryParams.subscribe((p) => {
       this.searchQuery = (p['q'] as string) || '';
+      // Intentionally unsanitized render of the search term (CTF: DOM XSS).
+      this.searchHtml = this.sanitizer.bypassSecurityTrustHtml(this.searchQuery);
       this.loadProducts();
     });
   }

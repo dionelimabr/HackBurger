@@ -29,8 +29,8 @@ export class LeaderboardModalComponent implements OnInit, OnDestroy {
   openModal(): void {
     this.open = true;
     this.load();
-    // Award the user for opening the leaderboard (auth required).
-    this.scoreService.tryComplete('open-leaderboard');
+    // CTF: Score Board challenge — you found the hidden leaderboard.
+    this.scoreService.tryComplete('scoreBoardChallenge');
   }
 
   close(): void { this.open = false; }

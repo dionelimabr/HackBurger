@@ -1,6 +1,9 @@
 <div class="catalog-page">
   <div class="catalog-header">
     <h1>Our Menu</h1>
+    <p *ngIf="searchQuery" class="search-summary">
+      Resultados para: <span class="search-term" [innerHTML]="searchHtml"></span>
+    </p>
     <div class="filters">
       <button class="btn" [class.btn-primary]="selectedCategory === ''" (click)="filterCategory('')">All</button>
       <button class="btn" *ngFor="let cat of categories" 

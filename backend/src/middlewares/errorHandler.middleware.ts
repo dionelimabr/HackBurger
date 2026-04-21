@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { sendError } from '../utils/response.util';
 import { env } from '../config/env';
+import { awardChallenge } from '../utils/challenge.util';
 
 export interface AppError extends Error {
   statusCode?: number;
@@ -9,7 +10,7 @@ export interface AppError extends Error {
 
 export function errorHandler(
   err: AppError,
-  _req: Request,
+  req: Request,
   res: Response,
   _next: NextFunction,
 ): void {
@@ -18,6 +19,12 @@ export function errorHandler(
 
   if (env.NODE_ENV !== 'production') {
     console.error('[ERROR]', err);
+  }
+
+  // CTF: Error Handling challenge — the user triggered an uncaught
+  // (non-operational) error and received a full stack trace in the response.
+  if (!err.isOperational && err.stack) {
+    awardChallenge(req, 'errorHandlingChallenge');
   }
 
   sendError(res, message, statusCode, env.NODE_ENV !== 'production' ? err.stack : undefined);
