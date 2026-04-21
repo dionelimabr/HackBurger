@@ -45,7 +45,7 @@ export class DocsPageComponent implements OnInit, OnDestroy, AfterViewChecked {
           this.slug = p['slug'] || 'index';
           this.loading = true;
           this.notFound = false;
-          return this.http.get(`/docs/${this.slug}.md`, { responseType: 'text' }).pipe(
+          return this.http.get(`assets/docs/${this.slug}.md`, { responseType: 'text' }).pipe(
             catchError(() => {
               this.notFound = true;
               return of('');

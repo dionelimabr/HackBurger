@@ -38,7 +38,7 @@
               {
                 "glob": "**/*.md",
                 "input": "../docs",
-                "output": "/docs"
+                "output": "/assets/docs"
               }
             ],
             "styles": [
