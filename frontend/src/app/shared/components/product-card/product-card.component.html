@@ -1,0 +1,23 @@
+<div class="product-card" [routerLink]="['/catalog', product.slug]">
+  <div class="image-container">
+    <img [src]="product.image_url || 'assets/images/burgers/placeholder.png'" [alt]="product.name">
+    <div class="badge" *ngIf="product.is_featured">Destaque</div>
+  </div>
+
+  <div class="content">
+    <div class="category">{{ product.category_name }}</div>
+    <h3 class="name">{{ product.name }}</h3>
+    
+    <div class="rating">
+      <span class="score">{{ product.rating }}</span>
+      <span class="count">({{ product.rating_count }} avaliações)</span>
+    </div>
+
+    <div class="footer">
+      <span class="price">{{ product.price | currencyBrl }}</span>
+      <button class="add-btn" type="button" (click)="onAddToCart($event)" aria-label="Adicionar ao carrinho">
+        Adicionar
+      </button>
+    </div>
+  </div>
+</div>

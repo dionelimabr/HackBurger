@@ -1,0 +1,51 @@
+<section class="profile-page">
+  <div class="container" *ngIf="!loading">
+    <h1>Meu Perfil</h1>
+
+    <div class="grid">
+      <div class="card avatar-card">
+        <div class="avatar">
+          <img [src]="avatarUrl()" alt="Avatar">
+        </div>
+        <input type="file" #fileInput accept="image/*" hidden (change)="onFileSelected($event)" />
+        <button class="btn btn-ghost" (click)="triggerUpload()" [disabled]="uploading">
+          {{ uploading ? 'Enviando...' : 'Trocar foto' }}
+        </button>
+        <p class="hint">JPG, PNG ou WEBP até 2MB.</p>
+      </div>
+
+      <form class="card" [formGroup]="form" (ngSubmit)="save()">
+        <h2>Dados pessoais</h2>
+        <label>
+          <span>Nome</span>
+          <input type="text" formControlName="name" />
+        </label>
+        <label>
+          <span>E-mail</span>
+          <input type="email" [value]="user?.email" disabled />
+        </label>
+        <label>
+          <span>Telefone</span>
+          <input type="tel" formControlName="phone" placeholder="(00) 00000-0000" />
+        </label>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+          Salvar alterações
+        </button>
+      </form>
+    </div>
+
+    <div class="card orders" *ngIf="orders.length">
+      <h2>Pedidos recentes</h2>
+      <ul>
+        <li *ngFor="let o of orders">
+          <a [routerLink]="['/orders', o.id]">
+            <span class="id">#{{ o.id }}</span>
+            <span class="status">{{ o.status }}</span>
+            <span class="total">{{ o.total | currencyBrl }}</span>
+            <span class="date">{{ o.created_at | date:'dd/MM HH:mm' }}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

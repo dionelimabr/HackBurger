@@ -28,7 +28,7 @@ function runMigrations(database: Database.Database): void {
     const sql = fs.readFileSync(path.join(migrationsDir, file), 'utf-8');
     database.exec(sql);
   }
-  console.log(`✅ Migrations aplicadas: ${files.length} arquivo(s).`);
+  console.log(`Migrations aplicadas: ${files.length} arquivo(s).`);
 }
 
 export default getDb;

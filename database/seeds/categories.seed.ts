@@ -4,11 +4,11 @@ import path from 'path';
 const db = new Database(path.resolve(__dirname, '../hackburger.db'));
 
 const categories = [
-  { name: 'Clássicos',    slug: 'classicos',    description: 'Os hambúrgueres tradicionais que nunca saem de moda.',  icon: '🍔' },
-  { name: 'Especiais',    slug: 'especiais',    description: 'Criações exclusivas do Chef com ingredientes premium.', icon: '⭐' },
-  { name: 'Veganos',      slug: 'veganos',      description: 'Hambúrgueres 100% plant-based deliciosos.',             icon: '🌱' },
-  { name: 'Frangos',      slug: 'frangos',      description: 'Opções crocantes e saborosas com frango.',               icon: '🐓' },
-  { name: 'Combos',       slug: 'combos',       description: 'Hambúrguer + batata + bebida com desconto.',             icon: '🍟' },
+  { name: 'Clássicos', slug: 'classicos', description: 'Os hambúrgueres tradicionais que nunca saem de moda.',  icon: 'classic' },
+  { name: 'Especiais', slug: 'especiais', description: 'Criações exclusivas do Chef com ingredientes premium.', icon: 'special' },
+  { name: 'Veganos',   slug: 'veganos',   description: 'Hambúrgueres 100% plant-based deliciosos.',             icon: 'vegan' },
+  { name: 'Frangos',   slug: 'frangos',   description: 'Opções crocantes e saborosas com frango.',               icon: 'chicken' },
+  { name: 'Combos',    slug: 'combos',    description: 'Hambúrguer + batata + bebida com desconto.',             icon: 'combo' },
 ];
 
 const insertCategory = db.prepare(`
@@ -23,4 +23,4 @@ const seedCategories = db.transaction(() => {
 });
 
 seedCategories();
-console.log('✅ Categories seed concluído.');
+console.log('Categories seed concluído.');

@@ -1,0 +1,25 @@
+<div class="catalog-page">
+  <div class="catalog-header">
+    <h1>Our Menu</h1>
+    <div class="filters">
+      <button class="btn" [class.btn-primary]="selectedCategory === ''" (click)="filterCategory('')">All</button>
+      <button class="btn" *ngFor="let cat of categories" 
+              [class.btn-primary]="selectedCategory === cat.slug"
+              (click)="filterCategory(cat.slug)">
+        {{ cat.name }}
+      </button>
+    </div>
+  </div>
+
+  <div class="product-grid">
+    <app-product-card 
+      *ngFor="let p of products" 
+      [product]="p" 
+      (addToCart)="onAddToCart($event)">
+    </app-product-card>
+  </div>
+  
+  <div *ngIf="products.length === 0" class="empty-state">
+    <p>Nenhum hambúrguer encontrado para a sua busca ou categoria.</p>
+  </div>
+</div>

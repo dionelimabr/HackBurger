@@ -18,4 +18,10 @@ export class UserService {
   updateProfile(data: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/profile`, data);
   }
+
+  uploadAvatar(file: File): Observable<any> {
+    const form = new FormData();
+    form.append('avatar', file);
+    return this.http.post(`${this.apiUrl}/avatar`, form);
+  }
 }

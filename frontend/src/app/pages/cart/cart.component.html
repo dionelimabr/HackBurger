@@ -1,0 +1,48 @@
+<section class="cart-page">
+  <div class="container">
+    <header class="page-header">
+      <h1>Meu Carrinho</h1>
+      <p *ngIf="items.length">{{ items.length }} item(ns)</p>
+    </header>
+
+    <div *ngIf="loading" class="state">Carregando...</div>
+
+    <div *ngIf="!loading && !items.length" class="empty">
+      <p>Seu carrinho está vazio.</p>
+      <a routerLink="/catalog" class="btn btn-primary">Ver cardápio</a>
+    </div>
+
+    <div *ngIf="!loading && items.length" class="cart-grid">
+      <ul class="items">
+        <li *ngFor="let it of items; trackBy: trackById" class="item">
+          <img [src]="it.product_image || 'assets/images/burgers/placeholder.png'" [alt]="it.product_name">
+          <div class="info">
+            <a [routerLink]="['/catalog', it.product_slug]" class="name">{{ it.product_name }}</a>
+            <span class="unit">{{ it.unit_price | currencyBrl }} / un.</span>
+          </div>
+          <div class="qty">
+            <button type="button" (click)="updateQty(it, it.quantity - 1)">-</button>
+            <span>{{ it.quantity }}</span>
+            <button type="button" (click)="updateQty(it, it.quantity + 1)">+</button>
+          </div>
+          <div class="subtotal">{{ it.unit_price * it.quantity | currencyBrl }}</div>
+          <button class="remove" type="button" (click)="remove(it)" aria-label="Remover">×</button>
+        </li>
+      </ul>
+
+      <aside class="summary">
+        <h2>Resumo</h2>
+        <div class="row">
+          <span>Subtotal</span>
+          <strong>{{ total | currencyBrl }}</strong>
+        </div>
+        <div class="row muted">
+          <span>Entrega</span>
+          <span>calculada no checkout</span>
+        </div>
+        <button class="btn btn-primary block" (click)="goCheckout()">Finalizar pedido</button>
+        <button class="btn btn-ghost block" (click)="clear()">Limpar carrinho</button>
+      </aside>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,68 @@
+<section class="checkout-page">
+  <div class="container">
+    <h1>Finalizar Pedido</h1>
+
+    <div class="grid">
+      <form class="address" [formGroup]="form" (ngSubmit)="submit()">
+        <h2>Endereço de entrega</h2>
+
+        <div class="row">
+          <label>
+            <span>Rua</span>
+            <input type="text" formControlName="address_street" autocomplete="street-address" />
+          </label>
+          <label class="short">
+            <span>Número</span>
+            <input type="text" formControlName="address_number" />
+          </label>
+        </div>
+
+        <div class="row">
+          <label>
+            <span>Cidade</span>
+            <input type="text" formControlName="address_city" />
+          </label>
+          <label class="short">
+            <span>UF</span>
+            <input type="text" maxlength="2" formControlName="address_state" />
+          </label>
+          <label class="short">
+            <span>CEP</span>
+            <input type="text" formControlName="address_zip" />
+          </label>
+        </div>
+
+        <label class="full">
+          <span>Observações (opcional)</span>
+          <textarea rows="3" formControlName="notes" placeholder="Ex.: sem cebola, troco para R$ 100..."></textarea>
+        </label>
+
+        <button type="submit" class="btn btn-primary" [disabled]="submitting">
+          {{ submitting ? 'Enviando...' : 'Confirmar pedido' }}
+        </button>
+      </form>
+
+      <aside class="summary">
+        <h2>Resumo</h2>
+        <ul class="items">
+          <li *ngFor="let it of items">
+            <span>{{ it.quantity }}× {{ it.product_name }}</span>
+            <span>{{ it.unit_price * it.quantity | currencyBrl }}</span>
+          </li>
+        </ul>
+        <div class="line">
+          <span>Subtotal</span>
+          <span>{{ subtotal | currencyBrl }}</span>
+        </div>
+        <div class="line">
+          <span>Entrega</span>
+          <span>{{ deliveryFee | currencyBrl }}</span>
+        </div>
+        <div class="line total">
+          <span>Total</span>
+          <strong>{{ total | currencyBrl }}</strong>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

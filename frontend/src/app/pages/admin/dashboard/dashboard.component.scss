@@ -1,0 +1,29 @@
+@import '../../../../styles/variables';
+
+.page-header {
+  margin-bottom: 2rem;
+  h1 { font-size: 1.75rem; font-weight: 800; }
+  p { color: rgba($text-light,.6); }
+}
+
+.state { padding: 2rem; color: rgba($text-light,.6); }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+
+  .card {
+    background: #1b1b1b;
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+
+    .label { color: rgba($text-light,.6); font-size: .85rem; text-transform: uppercase; letter-spacing: .5px; }
+    .value { font-size: 1.8rem; font-weight: 800; }
+    .accent { color: $secondary-color; }
+  }
+}

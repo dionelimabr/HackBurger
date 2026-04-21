@@ -46,4 +46,4 @@ const seedUsers = db.transaction(() => {
 });
 
 seedUsers();
-console.log('✅ Users seed concluído.');
+console.log('Users seed concluído.');

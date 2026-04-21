@@ -1,0 +1,16 @@
+<div class="admin-shell">
+  <aside class="sidebar">
+    <div class="brand">HackBurger Admin</div>
+    <nav>
+      <a routerLink="dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="products" routerLinkActive="active">Produtos</a>
+      <a routerLink="orders" routerLinkActive="active">Pedidos</a>
+      <a routerLink="users" routerLinkActive="active">Usuários</a>
+    </nav>
+    <a routerLink="/" class="back">Voltar ao site</a>
+  </aside>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

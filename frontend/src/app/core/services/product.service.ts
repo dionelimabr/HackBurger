@@ -30,4 +30,8 @@ export class ProductService {
   getCategories(): Observable<any> {
     return this.http.get(`${this.apiUrl}/categories`);
   }
+
+  search(query: string): Observable<any> {
+    return this.http.get(this.apiUrl, { params: { search: query, limit: 8 } });
+  }
 }

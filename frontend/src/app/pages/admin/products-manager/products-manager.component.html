@@ -1,0 +1,87 @@
+<header class="page-header">
+  <div>
+    <h1>Produtos</h1>
+    <p>Gerencie o cardápio</p>
+  </div>
+  <button class="btn btn-primary" (click)="openCreate()" *ngIf="!showForm">Novo produto</button>
+</header>
+
+<form *ngIf="showForm" class="form" [formGroup]="form" (ngSubmit)="save()">
+  <div class="grid">
+    <label>
+      <span>Categoria</span>
+      <select formControlName="category_id">
+        <option *ngFor="let c of categories" [ngValue]="c.id">{{ c.name }}</option>
+      </select>
+    </label>
+    <label>
+      <span>Nome</span>
+      <input type="text" formControlName="name" />
+    </label>
+    <label>
+      <span>Slug</span>
+      <input type="text" formControlName="slug" />
+    </label>
+    <label>
+      <span>Preço</span>
+      <input type="number" step="0.01" formControlName="price" />
+    </label>
+    <label class="full">
+      <span>Descrição</span>
+      <textarea rows="2" formControlName="description"></textarea>
+    </label>
+    <label class="full">
+      <span>URL da imagem</span>
+      <input type="text" formControlName="image_url" />
+    </label>
+    <label class="check">
+      <input type="checkbox" [checked]="form.value.is_available === 1"
+             (change)="form.patchValue({ is_available: $any($event.target).checked ? 1 : 0 })" />
+      <span>Disponível</span>
+    </label>
+    <label class="check">
+      <input type="checkbox" [checked]="form.value.is_featured === 1"
+             (change)="form.patchValue({ is_featured: $any($event.target).checked ? 1 : 0 })" />
+      <span>Destaque</span>
+    </label>
+  </div>
+
+  <div class="actions">
+    <button type="button" class="btn btn-ghost" (click)="cancel()">Cancelar</button>
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+      {{ editingId ? 'Atualizar' : 'Criar' }}
+    </button>
+  </div>
+</form>
+
+<div *ngIf="loading" class="state">Carregando...</div>
+
+<table *ngIf="!loading && !showForm" class="admin-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Categoria</th>
+      <th>Preço</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of products">
+      <td>{{ p.id }}</td>
+      <td>{{ p.name }}</td>
+      <td>{{ p.category_name || '-' }}</td>
+      <td>{{ p.price | currencyBrl }}</td>
+      <td>
+        <span class="tag" [class.on]="p.is_available">{{ p.is_available ? 'Ativo' : 'Inativo' }}</span>
+        <span class="tag feat" *ngIf="p.is_featured">Destaque</span>
+      </td>
+      <td class="row-actions">
+        <button (click)="openEdit(p)">Editar</button>
+        <button class="danger" (click)="delete(p)">Remover</button>
+      </td>
+    </tr>
+    <tr *ngIf="!products.length"><td colspan="6" class="empty">Nenhum produto.</td></tr>
+  </tbody>
+</table>

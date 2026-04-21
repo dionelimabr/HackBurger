@@ -1,0 +1,62 @@
+<div class="product-detail-page" *ngIf="!loading && product">
+  <div class="container">
+    <div class="back-link" routerLink="/catalog">
+      <i class="fas fa-arrow-left"></i> Voltar ao Menu
+    </div>
+
+    <div class="product-grid">
+      <div class="product-image">
+        <img [src]="product.image_url || 'assets/images/burgers/placeholder.png'" [alt]="product.name">
+        <div class="featured-badge" *ngIf="product.is_featured">Destaque da Semana</div>
+      </div>
+
+      <div class="product-info">
+        <div class="category">{{ product.category_name }}</div>
+        <h1>{{ product.name }}</h1>
+        
+        <div class="rating-row">
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <span>{{ product.rating }}</span>
+          </div>
+          <span class="reviews">({{ product.rating_count }} avaliações)</span>
+          <span class="status" [class.available]="product.is_available">
+            {{ product.is_available ? 'Em estoque' : 'Esgotado' }}
+          </span>
+        </div>
+
+        <div class="price">{{ product.price | currencyBrl }}</div>
+
+        <p class="description">{{ product.description }}</p>
+
+        <div class="ingredients" *ngIf="product.ingredients">
+          <h3>Ingredientes</h3>
+          <p>{{ product.ingredients }}</p>
+        </div>
+
+        <div class="actions" *ngIf="product.is_available">
+          <div class="quantity-selector">
+            <button (click)="decrementQuantity()" [disabled]="quantity <= 1">-</button>
+            <span>{{ quantity }}</span>
+            <button (click)="incrementQuantity()">+</button>
+          </div>
+          
+          <button class="add-to-cart-btn" (click)="addToCart()">
+            <i class="fas fa-shopping-basket"></i>
+            Adicionar ao Carrinho
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loader-container" *ngIf="loading">
+  <div class="spinner"></div>
+</div>
+
+<div class="error-container" *ngIf="!loading && error">
+  <h2>Oops!</h2>
+  <p>{{ error }}</p>
+  <button class="btn" routerLink="/catalog">Voltar ao Menu</button>
+</div>

@@ -1,0 +1,133 @@
+@import '../../../styles/variables';
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  h1 { font-size: 1.75rem; font-weight: 800; }
+  p { color: rgba($text-light,.6); }
+}
+
+.state, .empty {
+  padding: 2rem;
+  color: rgba($text-light,.6);
+  text-align: center;
+}
+
+.btn {
+  padding: .6rem 1.1rem;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  font-size: .9rem;
+
+  &.btn-primary { background: $primary-color; color: white; &:hover:not(:disabled) { filter: brightness(1.1); } }
+  &.btn-ghost { background: transparent; color: $text-light; border: 1px solid rgba(255,255,255,.15); &:hover { background: rgba(255,255,255,.05); } }
+  &:disabled { opacity: .6; cursor: not-allowed; }
+}
+
+.form {
+  background: #1b1b1b;
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    @media (max-width: $bp-mobile) { grid-template-columns: 1fr; }
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    font-size: .9rem;
+    color: rgba($text-light,.75);
+
+    input, textarea, select {
+      background: #121212;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px;
+      padding: .65rem;
+      color: $text-light;
+      font-size: .95rem;
+      font-family: inherit;
+      &:focus { outline: none; border-color: $secondary-color; }
+    }
+
+    &.full { grid-column: 1 / -1; }
+    &.check { flex-direction: row; align-items: center; gap: .5rem; }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: .75rem;
+    margin-top: 1rem;
+  }
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #1b1b1b;
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 12px;
+  overflow: hidden;
+
+  th, td {
+    text-align: left;
+    padding: .8rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    font-size: .9rem;
+  }
+
+  th { background: rgba(255,255,255,.03); font-weight: 700; color: rgba($text-light,.75); text-transform: uppercase; letter-spacing: .5px; font-size: .75rem; }
+
+  tr:last-child td { border-bottom: none; }
+
+  .tag {
+    display: inline-block;
+    padding: .15rem .55rem;
+    border-radius: 999px;
+    font-size: .7rem;
+    font-weight: 700;
+    background: rgba($primary-color,.15);
+    color: $primary-color;
+    margin-right: .35rem;
+
+    &.on { background: rgba(#2ecc71, .15); color: #2ecc71; }
+    &.feat { background: rgba($secondary-color,.18); color: $secondary-color; }
+  }
+
+  .row-actions {
+    display: flex;
+    gap: .4rem;
+
+    button {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.15);
+      color: $text-light;
+      border-radius: 6px;
+      padding: .3rem .6rem;
+      font-size: .8rem;
+      cursor: pointer;
+      &:hover { background: rgba(255,255,255,.05); }
+      &.danger { color: $primary-color; border-color: rgba($primary-color,.4); &:hover { background: rgba($primary-color,.1); } }
+    }
+  }
+
+  select {
+    background: #121212;
+    border: 1px solid rgba(255,255,255,.1);
+    color: $text-light;
+    padding: .4rem;
+    border-radius: 6px;
+  }
+}

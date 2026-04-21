@@ -1,0 +1,43 @@
+<div class="sp-backdrop" *ngIf="open" (click)="close()"></div>
+
+<div class="sp-modal" *ngIf="open" role="dialog" aria-modal="true" aria-label="Buscar">
+  <div class="sp-box" (click)="$event.stopPropagation()">
+    <div class="sp-input-row">
+      <svg class="sp-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input
+        #searchInput
+        type="text"
+        [value]="query"
+        (input)="onInput($any($event.target).value)"
+        (keydown.enter)="submitFull()"
+        placeholder="Buscar hambúrgueres, combos, frangos..." />
+      <kbd class="sp-kbd" (click)="close()">Esc</kbd>
+    </div>
+
+    <div class="sp-results" *ngIf="query.trim()">
+      <div class="sp-empty" *ngIf="loading">Buscando...</div>
+      <div class="sp-empty" *ngIf="!loading && !results.length">Nenhum produto encontrado.</div>
+
+      <ul *ngIf="!loading && results.length">
+        <li *ngFor="let r of results" (click)="go(r)">
+          <img [src]="r.image_url" [alt]="r.name" onerror="this.style.visibility='hidden'">
+          <div class="meta">
+            <span class="name">{{ r.name }}</span>
+            <span class="cat">{{ r.category_name }}</span>
+          </div>
+          <span class="price">{{ r.price | currencyBrl }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="sp-footer">
+      <span><kbd>↵</kbd> abrir</span>
+      <span><kbd>Esc</kbd> fechar</span>
+      <span class="spacer"></span>
+      <span class="hint">{{ isMac ? '⌘' : 'Ctrl' }} + K</span>
+    </div>
+  </div>
+</div>

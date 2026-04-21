@@ -1,0 +1,120 @@
+@import '../../../styles/variables';
+
+.tracking-page {
+  padding: 120px 5% 4rem;
+  min-height: 100vh;
+  background: #121212;
+  color: $text-light;
+
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  .state {
+    text-align: center;
+    padding: 3rem;
+    background: #1b1b1b;
+    border-radius: 12px;
+    &.error { color: $primary-color; }
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    h1 { font-size: 2rem; font-weight: 800; }
+    .status {
+      background: rgba($secondary-color, .15);
+      color: $secondary-color;
+      padding: .4rem .9rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: .9rem;
+
+      &.cancelled { color: $primary-color; background: rgba($primary-color, .15); }
+    }
+  }
+
+  .timeline {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background: #1b1b1b;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.05);
+    position: relative;
+
+    .step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+
+      .bullet {
+        width: 36px; height: 36px;
+        border-radius: 50%;
+        background: rgba(255,255,255,.08);
+        color: rgba($text-light, .6);
+        display: flex; align-items: center; justify-content: center;
+        margin: 0 auto .5rem;
+        font-weight: 700;
+        transition: all .3s;
+      }
+      .label { font-size: .8rem; color: rgba($text-light, .6); }
+
+      &.done {
+        .bullet { background: $secondary-color; color: #1a1a1a; }
+        .label { color: $text-light; }
+      }
+    }
+
+    @media (max-width: $bp-mobile) {
+      flex-direction: column;
+      .step { text-align: left; display: flex; align-items: center; gap: .75rem;
+        .bullet { margin: 0; }
+      }
+    }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 2rem;
+    @media (max-width: $bp-tablet) { grid-template-columns: 1fr; }
+  }
+
+  h2 { font-size: 1.1rem; margin: 1rem 0 .75rem; }
+
+  .items, .info {
+    background: #1b1b1b;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.05);
+
+    ul { list-style: none; padding: 0; margin: 0; }
+    li {
+      display: flex; justify-content: space-between;
+      padding: .5rem 0;
+      border-bottom: 1px dashed rgba(255,255,255,.08);
+    }
+  }
+
+  .info {
+    p { margin: .25rem 0; color: rgba($text-light, .8); }
+    .notes { font-style: italic; color: rgba($text-light, .65); }
+    .line {
+      display: flex; justify-content: space-between;
+      padding: .35rem 0;
+      &.total {
+        border-top: 1px solid rgba(255,255,255,.1);
+        margin-top: .5rem; padding-top: .75rem;
+        font-size: 1.1rem;
+        strong { color: $secondary-color; }
+      }
+    }
+    .eta { margin-top: 1rem; color: $secondary-color; font-weight: 600; }
+  }
+}

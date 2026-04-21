@@ -1,0 +1,66 @@
+@import '../../../../styles/variables';
+
+.toast-container {
+  position: fixed;
+  top: 100px; // Abaixo da navbar
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  min-width: 300px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 16px 20px;
+  background: rgba(30, 30, 30, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border-left: 4px solid #fff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.3s ease forwards;
+  color: white;
+
+  &.success { border-left-color: #2ed573; .icon { color: #2ed573; } }
+  &.error { border-left-color: #ff4757; .icon { color: #ff4757; } }
+  &.info { border-left-color: #3498db; .icon { color: #3498db; } }
+
+  .icon {
+    font-size: 1.25rem;
+  }
+
+  .message {
+    flex-grow: 1;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .close-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.2s;
+
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

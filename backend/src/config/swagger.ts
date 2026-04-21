@@ -6,7 +6,7 @@ const options: swaggerJsdoc.Options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: '🍔 HackBurger API',
+      title: 'HackBurger API',
       version: '1.0.0',
       description: 'API REST do e-commerce HackBurger',
     },

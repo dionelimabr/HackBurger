@@ -2,11 +2,17 @@
   "name": "hackburger-monorepo",
   "version": "1.0.0",
   "scripts": {
-    "start": "docker-compose up -d",
-    "stop": "docker-compose down",
-    "dev:backend": "cd backend && npm run dev",
-    "dev:frontend": "cd frontend && npm start",
+    "start": "concurrently -n backend,frontend -c yellow,cyan \"npm:dev:backend\" \"npm:dev:frontend\"",
+    "dev": "concurrently -n backend,frontend -c yellow,cyan \"npm:dev:backend\" \"npm:dev:frontend\"",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend start",
+    "seed": "npm --prefix backend run seed",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
     "test:unit": "jest --config tests/jest.config.ts",
     "test:e2e": "cd tests && npx cypress open"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }

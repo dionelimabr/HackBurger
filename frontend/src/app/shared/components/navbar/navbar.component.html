@@ -1,30 +1,150 @@
 <header class="navbar">
   <div class="logo">
-    <a routerLink="/" style="color: #F39C12; font-size: 1.5rem; font-weight: 900; text-decoration: none;">
-      🍔 TASTY BURGER
-    </a>
+    <a routerLink="/" class="logo-link">HACKBURGER</a>
   </div>
 
   <nav class="nav-links">
-    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">HOME</a>
-    <a routerLink="/catalog" routerLinkActive="active">OUR MENU</a>
-    <a routerLink="/catalog" routerLinkActive="active">SHOP</a>
-    <a href="#contact">CONTACT</a>
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{ t('nav.home') }}</a>
+    <a routerLink="/catalog" routerLinkActive="active">{{ t('nav.menu') }}</a>
+    <a routerLink="/catalog" routerLinkActive="active">{{ t('nav.shop') }}</a>
+    <a href="#contact">{{ t('nav.contact') }}</a>
   </nav>
 
   <div class="nav-actions">
-    <a routerLink="/cart" class="cart-icon">
-      🛒 <span class="badge" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
+    <button
+      type="button"
+      class="nav-btn kbd-btn"
+      (click)="openSearch()"
+      [attr.aria-label]="t('nav.searchHint')"
+      [title]="t('nav.search')">
+      <span class="kbd-key">{{ isMac ? '⌘' : 'Ctrl' }}</span>
+      <span class="kbd-key">K</span>
+    </button>
+
+    <button
+      type="button"
+      class="nav-btn flag-btn"
+      (click)="toggleLang()"
+      [attr.aria-label]="t('nav.language')"
+      [title]="t('nav.language')">
+      <span class="flag" aria-hidden="true">
+        <svg *ngIf="lang === 'pt'" viewBox="0 0 36 24" width="28" height="20" preserveAspectRatio="none">
+          <rect width="36" height="24" fill="#009b3a"/>
+          <polygon points="18,3 33,12 18,21 3,12" fill="#fedf00"/>
+          <circle cx="18" cy="12" r="4.5" fill="#002776"/>
+        </svg>
+        <svg *ngIf="lang === 'en'" viewBox="0 0 36 24" width="28" height="20" preserveAspectRatio="none">
+          <rect width="36" height="24" fill="#b22234"/>
+          <g fill="#fff">
+            <rect y="2"  width="36" height="2"/>
+            <rect y="6"  width="36" height="2"/>
+            <rect y="10" width="36" height="2"/>
+            <rect y="14" width="36" height="2"/>
+            <rect y="18" width="36" height="2"/>
+            <rect y="22" width="36" height="2"/>
+          </g>
+          <rect width="15" height="12" fill="#3c3b6e"/>
+          <g fill="#fff">
+            <circle cx="3"  cy="2"  r=".8"/><circle cx="7.5" cy="2"  r=".8"/><circle cx="12" cy="2"  r=".8"/>
+            <circle cx="5"  cy="4"  r=".8"/><circle cx="10"  cy="4"  r=".8"/>
+            <circle cx="3"  cy="6"  r=".8"/><circle cx="7.5" cy="6"  r=".8"/><circle cx="12" cy="6"  r=".8"/>
+            <circle cx="5"  cy="8"  r=".8"/><circle cx="10"  cy="8"  r=".8"/>
+            <circle cx="3"  cy="10" r=".8"/><circle cx="7.5" cy="10" r=".8"/><circle cx="12" cy="10" r=".8"/>
+          </g>
+        </svg>
+      </span>
+    </button>
+
+    <button
+      type="button"
+      class="nav-btn icon-btn"
+      (click)="toggleTheme()"
+      [attr.aria-label]="t('nav.theme')"
+      [title]="t('nav.theme')">
+      <svg *ngIf="theme === 'dark'" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+      </svg>
+      <svg *ngIf="theme === 'light'" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+
+    <a
+      [href]="githubUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="nav-btn icon-btn"
+      aria-label="GitHub"
+      title="GitHub">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.21.09 1.84 1.25 1.84 1.25 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.31-5.47-1.34-5.47-5.95 0-1.31.47-2.39 1.24-3.23-.12-.31-.54-1.54.12-3.22 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.29-1.23 3.29-1.23.67 1.68.25 2.91.12 3.22.77.84 1.24 1.92 1.24 3.23 0 4.62-2.81 5.63-5.49 5.93.43.37.82 1.1.82 2.22v3.29c0 .32.22.7.82.58A12 12 0 0 0 12 .5z"/>
+      </svg>
     </a>
-    
+
+    <a routerLink="/cart" class="nav-btn icon-btn cart-icon" [attr.aria-label]="t('nav.cart')" [title]="t('nav.cart')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+      </svg>
+      <span class="badge" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
+    </a>
+
+    <div class="notif-wrap" #notifRef>
+      <button
+        type="button"
+        class="nav-btn icon-btn"
+        (click)="toggleNotif()"
+        [attr.aria-label]="t('nav.notifications')"
+        [title]="t('nav.notifications')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        <span class="badge" *ngIf="unreadCount > 0">{{ unreadCount }}</span>
+      </button>
+
+      <div class="notif-dropdown" *ngIf="notifOpen" (click)="$event.stopPropagation()">
+        <header>
+          <strong>{{ t('nav.notifications') }}</strong>
+          <button type="button" class="mark-read" (click)="markAllRead()" *ngIf="unreadCount">
+            {{ lang === 'pt' ? 'Marcar como lidas' : 'Mark all read' }}
+          </button>
+        </header>
+        <ul>
+          <li *ngFor="let n of notifications" [class.unread]="!n.read">
+            <span class="dot"></span>
+            <div>
+              <p>{{ n.title }}</p>
+              <span class="time">{{ n.time }}</span>
+            </div>
+          </li>
+          <li *ngIf="!notifications.length" class="empty">
+            {{ lang === 'pt' ? 'Sem notificações' : 'No notifications' }}
+          </li>
+        </ul>
+      </div>
+    </div>
+
     <ng-container *ngIf="!isAuthenticated; else authenticatedMenu">
-      <a routerLink="/auth/login" class="btn btn-primary login-btn">Login</a>
+      <a routerLink="/auth/login" class="btn btn-primary login-btn">{{ t('nav.login') }}</a>
     </ng-container>
-    
+
     <ng-template #authenticatedMenu>
-      <a routerLink="/profile" class="profile-link">Profile</a>
-      <span style="margin: 0 10px; color: #fff;">|</span>
-      <a href="javascript:void(0)" (click)="logout()" class="logout-link">Sair</a>
+      <a routerLink="/profile" class="avatar-link" [title]="t('nav.profile')">
+        <img *ngIf="avatarUrl()" [src]="avatarUrl()" alt="avatar">
+        <span *ngIf="!avatarUrl()" class="avatar-fallback">{{ userInitial() }}</span>
+      </a>
+      <button type="button" (click)="logout()" class="nav-btn icon-btn logout-btn" [title]="t('nav.logout')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+      </button>
     </ng-template>
   </div>
 </header>
+
+<app-search-palette #searchPalette></app-search-palette>

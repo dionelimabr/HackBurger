@@ -1,0 +1,25 @@
+<header class="page-header">
+  <h1>Dashboard</h1>
+  <p>Visão geral da operação</p>
+</header>
+
+<div *ngIf="loading" class="state">Carregando...</div>
+
+<div *ngIf="!loading && stats" class="cards">
+  <div class="card">
+    <span class="label">Usuários</span>
+    <strong class="value">{{ stats.totalUsers }}</strong>
+  </div>
+  <div class="card">
+    <span class="label">Produtos</span>
+    <strong class="value">{{ stats.totalProducts }}</strong>
+  </div>
+  <div class="card">
+    <span class="label">Pedidos</span>
+    <strong class="value">{{ stats.totalOrders }}</strong>
+  </div>
+  <div class="card">
+    <span class="label">Receita total</span>
+    <strong class="value accent">{{ stats.totalRevenue | currencyBrl }}</strong>
+  </div>
+</div>

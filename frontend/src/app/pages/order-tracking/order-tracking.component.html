@@ -1,0 +1,50 @@
+<section class="tracking-page">
+  <div class="container">
+    <div *ngIf="loading" class="state">Carregando pedido...</div>
+    <div *ngIf="error" class="state error">{{ error }}</div>
+
+    <ng-container *ngIf="!loading && order">
+      <header>
+        <h1>Pedido #{{ order.id }}</h1>
+        <span class="status" [class.cancelled]="order.status === 'cancelled'">
+          {{ statusLabel(order.status) }}
+        </span>
+      </header>
+
+      <div *ngIf="order.status !== 'cancelled'" class="timeline">
+        <div *ngFor="let step of steps; let i = index" class="step" [class.done]="isDone(step.key)">
+          <div class="bullet">{{ i + 1 }}</div>
+          <div class="label">{{ step.label }}</div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <section class="items">
+          <h2>Itens</h2>
+          <ul>
+            <li *ngFor="let it of order.items">
+              <span>{{ it.quantity }}× Produto #{{ it.product_id }}</span>
+              <span>{{ it.subtotal | currencyBrl }}</span>
+            </li>
+          </ul>
+        </section>
+
+        <aside class="info">
+          <h2>Entrega</h2>
+          <p>{{ order.address_street }}, {{ order.address_number }}</p>
+          <p>{{ order.address_city }} / {{ order.address_state }} — {{ order.address_zip }}</p>
+          <p *ngIf="order.notes" class="notes">Obs.: {{ order.notes }}</p>
+
+          <h2>Total</h2>
+          <div class="line"><span>Subtotal</span><span>{{ order.subtotal | currencyBrl }}</span></div>
+          <div class="line"><span>Entrega</span><span>{{ order.delivery_fee | currencyBrl }}</span></div>
+          <div class="line total"><span>Total</span><strong>{{ order.total | currencyBrl }}</strong></div>
+
+          <p *ngIf="order.estimated_at" class="eta">
+            Previsão: {{ order.estimated_at | date:'dd/MM HH:mm' }}
+          </p>
+        </aside>
+      </div>
+    </ng-container>
+  </div>
+</section>

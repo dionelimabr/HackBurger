@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { UserController } from '../controllers/user.controller';
 import { authenticate } from '../middlewares/auth.middleware';
 import { validate } from '../middlewares/validate.middleware';
+import { avatarUpload } from '../middlewares/upload.middleware';
 import Joi from 'joi';
 
 const router = Router();
@@ -16,10 +17,12 @@ router.put(
     body: Joi.object({
       name: Joi.string().optional(),
       phone: Joi.string().optional().allow(null),
-      avatar_url: Joi.string().uri().optional().allow(null),
+      avatar_url: Joi.string().optional().allow(null, ''),
     }),
   }),
   UserController.updateProfile
 );
+
+router.post('/avatar', avatarUpload.single('avatar'), UserController.uploadAvatar);
 
 export default router;

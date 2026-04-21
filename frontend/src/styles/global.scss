@@ -3,7 +3,261 @@
 @import 'reset';
 
 body {
-  // Configurado no Angular.json em styles.
+  transition: background-color .2s ease, color .2s ease;
+}
+
+/* =========================================
+   DARK THEME OVERRIDES (global)
+   Pages têm fundo claro por padrão; aqui invertemos.
+   ========================================= */
+body.theme-dark {
+  background-color: #0f0f10;
+  color: #e8e8ea;
+
+  /* Catalog */
+  .catalog-page {
+    background-color: #0f0f10 !important;
+    .catalog-header h1, .catalog-header p, .catalog-header { color: #e8e8ea !important; }
+    .filters .btn {
+      background-color: #1d1d1f !important;
+      color: $secondary-color !important;
+      border-color: rgba(255,255,255,.15) !important;
+      &:hover, &.btn-primary { background-color: $primary-color !important; color: #fff !important; border-color: $primary-color !important; }
+    }
+  }
+
+  /* Home: featured e app-promo */
+  .featured-section {
+    background-color: #0f0f10 !important;
+    .section-title h2 { color: $primary-color !important; }
+    .section-title p  { color: rgba(255,255,255,.65) !important; }
+    .product-card {
+      background: #1d1d1f !important;
+      border-color: rgba(255,255,255,.08) !important;
+      .product-info h3 { color: #e8e8ea !important; }
+      .product-info .ingredients { color: rgba(255,255,255,.6) !important; }
+    }
+  }
+
+  /* Product cards gerais (catálogo) */
+  .product-card {
+    background: #1d1d1f !important;
+    border-color: rgba(255,255,255,.08) !important;
+    color: #e8e8ea;
+    h3, .name { color: #e8e8ea !important; }
+    .ingredients, .category, .rating .count { color: rgba(255,255,255,.6) !important; }
+  }
+
+  /* Pages cart/checkout/tracking/profile já estão dark por padrão — nada a fazer */
+
+  /* Auth container (branco por padrão) */
+  .auth-container {
+    background-color: #1d1d1f !important;
+    color: #e8e8ea;
+    input, select, textarea {
+      background: #2a2a2d !important;
+      color: #e8e8ea !important;
+      border-color: rgba(255,255,255,.1) !important;
+    }
+  }
+}
+
+/* =========================================
+   LIGHT THEME OVERRIDES (global)
+   ========================================= */
+body.theme-light {
+  background-color: #f5f5f7;
+  color: #1d1d1f;
+
+  /* Navbar */
+  .navbar {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid rgba(0,0,0,.08);
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+
+    .logo .logo-link { color: $primary-color !important; }
+
+    .nav-links a {
+      color: #2a2a2e !important;
+      font-weight: 700;
+      opacity: 1;
+      &:hover { color: $primary-color !important; }
+      &.active { color: $primary-color !important; }
+    }
+
+    .nav-actions .nav-btn {
+      background: #f4f4f6 !important;
+      border-color: rgba(0,0,0,.12) !important;
+      color: #1d1d1f !important;
+      svg { color: #1d1d1f; stroke: currentColor; }
+      &:hover {
+        background: #eaeaee !important;
+        border-color: rgba(0,0,0,.2) !important;
+        color: $primary-color !important;
+        svg { color: $primary-color; }
+      }
+      .badge {
+        border-color: #fff !important;
+        background: $primary-color !important;
+        color: #fff !important;
+      }
+    }
+
+    .nav-actions .flag {
+      box-shadow: 0 0 0 1px rgba(0,0,0,.18), 0 1px 2px rgba(0,0,0,.12);
+    }
+    .nav-actions .kbd-btn .kbd-key {
+      background: #ffffff !important;
+      border-color: rgba(0,0,0,.18) !important;
+      color: #1d1d1f !important;
+      box-shadow: inset 0 -1px 0 rgba(0,0,0,.12), 0 1px 1px rgba(0,0,0,.04) !important;
+    }
+
+    .nav-actions .notif-dropdown {
+      background: #fff; color: #1d1d1f;
+      border-color: rgba(0,0,0,.1);
+      box-shadow: 0 20px 40px rgba(0,0,0,.14);
+      header { border-bottom-color: rgba(0,0,0,.06); strong { color: #1d1d1f; } }
+      li p { color: #1d1d1f; }
+      li .time { color: rgba(0,0,0,.5); }
+      li:hover { background: rgba(0,0,0,.04); }
+    }
+
+    .nav-actions .avatar-link {
+      background: #eaeaee;
+      border-color: rgba($primary-color, .5);
+      color: $primary-color;
+      &:hover { border-color: $primary-color; }
+    }
+
+    .nav-actions .login-btn {
+      background: $primary-color !important;
+      color: #fff !important;
+      &:hover { filter: brightness(1.08); }
+    }
+  }
+
+  /* Pages: cart, checkout, order-tracking, profile */
+  .cart-page, .checkout-page, .tracking-page, .profile-page {
+    background-color: #f5f5f7 !important;
+    color: #1d1d1f;
+
+    h1, h2, h3, h4 { color: #1d1d1f; }
+    p, span, label { color: #3a3a3c; }
+
+    .card, .summary, .address, .info, .items, .form, .orders,
+    .item, .state, .empty, .timeline, .avatar-card {
+      background: #ffffff !important;
+      border-color: rgba(0,0,0,.08) !important;
+      color: #1d1d1f;
+      box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+
+    input, select, textarea {
+      background: #ffffff !important;
+      color: #1d1d1f !important;
+      border-color: rgba(0,0,0,.15) !important;
+      &:focus { border-color: $secondary-color !important; }
+    }
+
+    .row, .line { border-color: rgba(0,0,0,.08) !important; }
+    .muted, .hint, .time, .notes { color: rgba(0,0,0,.55) !important; }
+
+    .btn.btn-ghost {
+      color: #1d1d1f;
+      border-color: rgba(0,0,0,.15);
+      &:hover { background: rgba(0,0,0,.05); }
+    }
+
+    .tag { background: rgba($primary-color,.1); }
+  }
+
+  /* Admin */
+  .admin-shell {
+    background: #f5f5f7 !important;
+    color: #1d1d1f;
+
+    .sidebar {
+      background: #ffffff !important;
+      border-right-color: rgba(0,0,0,.08);
+
+      .brand { border-bottom-color: rgba(0,0,0,.08); }
+      nav a {
+        color: rgba(0,0,0,.65);
+        &:hover { background: rgba(0,0,0,.05); color: #1d1d1f; }
+        &.active { background: rgba($secondary-color,.15); color: darken($secondary-color, 15%); }
+      }
+      .back { color: rgba(0,0,0,.55); &:hover { color: #1d1d1f; } }
+    }
+
+    .page-header p { color: rgba(0,0,0,.55); }
+
+    .card, .form, .admin-table {
+      background: #ffffff !important;
+      border-color: rgba(0,0,0,.08) !important;
+      color: #1d1d1f;
+    }
+    .admin-table {
+      th { background: rgba(0,0,0,.03); color: rgba(0,0,0,.55); }
+      th, td { border-bottom-color: rgba(0,0,0,.06); }
+      .row-actions button {
+        color: #1d1d1f; border-color: rgba(0,0,0,.15);
+        &:hover { background: rgba(0,0,0,.05); }
+      }
+      .tag { background: rgba(#2ecc71,.15); color: #127a3b;
+        &.feat { background: rgba($secondary-color,.15); color: darken($secondary-color, 15%); }
+      }
+      select { background: #fff !important; color: #1d1d1f !important; border-color: rgba(0,0,0,.15) !important; }
+    }
+
+    .form label { color: rgba(0,0,0,.7); }
+    .form input, .form select, .form textarea {
+      background: #fff !important; color: #1d1d1f !important;
+      border-color: rgba(0,0,0,.15) !important;
+    }
+  }
+
+  /* Search palette */
+  .sp-box {
+    background: #ffffff !important;
+    border-color: rgba(0,0,0,.08) !important;
+    color: #1d1d1f !important;
+    box-shadow: 0 30px 60px rgba(0,0,0,.18);
+
+    .sp-input-row { border-bottom-color: rgba(0,0,0,.06); }
+    input { color: #1d1d1f !important; &::placeholder { color: rgba(0,0,0,.45) !important; } }
+    .sp-kbd { background: rgba(0,0,0,.06); color: rgba(0,0,0,.55); }
+    .sp-results li:hover { background: rgba($secondary-color,.12); }
+    .sp-results .meta .cat { color: rgba(0,0,0,.55); }
+    .sp-footer { background: rgba(0,0,0,.02); border-top-color: rgba(0,0,0,.06); color: rgba(0,0,0,.55); kbd { background: rgba(0,0,0,.07); } }
+  }
+
+  /* Featured section on home already white, tweak card text */
+  .featured-section .product-card { background: #fff; border-color: rgba(0,0,0,.08); }
+
+  /* Product cards in catalog (glass dark) */
+  .product-card {
+    background: #ffffff !important;
+    border-color: rgba(0,0,0,.08) !important;
+
+    .content .name { color: #1d1d1f !important; }
+    .content .category { color: rgba(0,0,0,.55) !important; }
+    .content .rating .count { color: rgba(0,0,0,.45) !important; }
+    .content .footer .add-btn { color: #1d1d1f; border-color: rgba(0,0,0,.15); &:hover { background: $primary-color; color: #fff; border-color: $primary-color; } }
+  }
+
+  /* Footer */
+  .footer {
+    background: #ffffff !important;
+    color: #1d1d1f !important;
+    border-top-color: rgba(0,0,0,.08) !important;
+
+    h3 { color: $primary-color !important; }
+    h4 { color: #1d1d1f !important; }
+    p  { color: rgba(0,0,0,.6) !important; }
+    a  { color: rgba(0,0,0,.7) !important; &:hover { color: $primary-color !important; } }
+    .bottom { border-top-color: rgba(0,0,0,.08) !important; color: rgba(0,0,0,.55) !important; }
+  }
 }
 
 .auth-container {

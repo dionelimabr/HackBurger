@@ -8,6 +8,7 @@ import { env } from './env';
 import { setupSwagger } from './swagger';
 import { errorHandler } from '../middlewares/errorHandler.middleware';
 import { metricsMiddleware } from '../metrics/prometheus';
+import { UPLOADS_ROOT } from '../middlewares/upload.middleware';
 
 // Routes
 import authRoutes    from '../routes/auth.routes';
@@ -21,8 +22,11 @@ import adminRoutes   from '../routes/admin.routes';
 const app: Application = express();
 
 // Security & utilities
-app.use(helmet());
+app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 app.use(cors({ origin: env.CORS_ORIGIN, credentials: true }));
+
+// Arquivos estáticos (avatares e outros uploads)
+app.use('/uploads', express.static(UPLOADS_ROOT));
 app.use(compression());
 app.use(express.json({ limit: '2mb' }));
 app.use(express.urlencoded({ extended: true }));

@@ -1,0 +1,34 @@
+<header class="page-header">
+  <div>
+    <h1>Pedidos</h1>
+    <p>Acompanhe e atualize o status</p>
+  </div>
+</header>
+
+<div *ngIf="loading" class="state">Carregando...</div>
+
+<table *ngIf="!loading" class="admin-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Cliente</th>
+      <th>Total</th>
+      <th>Criado em</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let o of orders">
+      <td>#{{ o.id }}</td>
+      <td>{{ o.user_id }}</td>
+      <td>{{ o.total | currencyBrl }}</td>
+      <td>{{ o.created_at | date:'dd/MM HH:mm' }}</td>
+      <td>
+        <select [value]="o.status" (change)="changeStatus(o, $any($event.target).value)">
+          <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+        </select>
+      </td>
+    </tr>
+    <tr *ngIf="!orders.length"><td colspan="5" class="empty">Nenhum pedido.</td></tr>
+  </tbody>
+</table>
