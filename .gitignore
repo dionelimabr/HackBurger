@@ -1,0 +1,34 @@
+# dependencies
+node_modules/
+**/node_modules/
+
+# builds
+dist/
+**/dist/
+build/
+.angular/
+coverage/
+
+# env
+.env
+.env.local
+.env.*.local
+
+# database (sqlite runtime)
+database/*.db
+database/*.db-shm
+database/*.db-wal
+
+# logs
+*.log
+npm-debug.log*
+
+# editor / OS
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# uploads
+uploads/*
+!uploads/.gitkeep
