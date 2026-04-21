@@ -14,6 +14,31 @@ router.get('/', (_req: Request, res: Response) => {
   res.json({ status: 'success', data: feedbacks });
 });
 
+// CTF: five_star_feedback — deleting feedback is intentionally unauthenticated
+// so any player can purge the only 5-star feedback from the catalog.
+router.delete('/:id', (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const idx = feedbacks.findIndex((f) => f.id === id);
+  if (idx < 0) {
+    res.status(404).json({ status: 'error', message: 'Feedback não encontrado' });
+    return;
+  }
+  const [removed] = feedbacks.splice(idx, 1);
+  if (removed.rating === 5) awardChallenge(req, 'fiveStarFeedbackChallenge');
+  res.json({ status: 'success', data: { id } });
+});
+
+// Seed a 5-star feedback so the challenge is solvable from a fresh boot.
+if (!feedbacks.some((f) => f.rating === 5)) {
+  feedbacks.push({
+    id: nextId++,
+    author: 'Admin',
+    rating: 5,
+    comment: 'Tudo perfeito, equipe nota 10!',
+    createdAt: new Date().toISOString(),
+  });
+}
+
 router.post(
   '/',
   validate({

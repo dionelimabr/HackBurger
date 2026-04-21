@@ -25,6 +25,8 @@ import debugRoutes   from '../routes/debug.routes';
 import ftpRoutes     from '../routes/ftp.routes';
 import feedbackRoutes from '../routes/feedback.routes';
 import redirectRoutes from '../routes/redirect.routes';
+import legacyRoutes  from '../routes/legacy.routes';
+import miscRoutes    from '../routes/misc.routes';
 
 const app: Application = express();
 
@@ -59,10 +61,18 @@ app.use('/api/scores',   scoreRoutes);
 app.use('/api/legal',    legalRoutes);
 app.use('/api/debug',    debugRoutes);
 app.use('/api/feedback', feedbackRoutes);
+app.use('/api/legacy',   legacyRoutes);
+app.use('/api/misc',     miscRoutes);
 
 // Intentionally non-"/api" paths — these are part of the CTF exploration.
 app.use('/ftp',       ftpRoutes);
 app.use('/redirect',  redirectRoutes);
+
+// security.txt discovery (CTF: white_hat). Redirects to the misc handler.
+app.get(['/security.txt', '/.well-known/security.txt'], (req, res, next) => {
+  req.url = '/security.txt';
+  (miscRoutes as any).handle(req, res, next);
+});
 
 // Prometheus metrics (intentionally public — CTF: Exposed Metrics)
 app.get('/metrics', (req, res) => {

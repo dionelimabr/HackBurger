@@ -1,12 +1,22 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import { CartService } from '../services/cart.service';
 import { sendSuccess } from '../utils/response.util';
 import { AuthRequest } from '../middlewares/auth.middleware';
+import { awardChallenge } from '../utils/challenge.util';
 
 export const CartController = {
   async getCart(req: AuthRequest, res: Response, next: NextFunction) {
     try {
-      const data = await CartService.getCart(req.user!.userId);
+      // CTF: view_basket — when a ?userId= override is passed, the backend
+      // blindly trusts it instead of req.user.userId. IDOR happens here.
+      const overrideUserId = req.query.userId ? Number(req.query.userId) : null;
+      const effectiveUserId = overrideUserId ?? req.user!.userId;
+
+      if (overrideUserId && overrideUserId !== req.user!.userId) {
+        awardChallenge(req, 'viewBasketChallenge');
+      }
+
+      const data = await CartService.getCart(effectiveUserId);
       sendSuccess(res, data);
     } catch (err) { next(err); }
   },

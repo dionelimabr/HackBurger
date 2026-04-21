@@ -27,6 +27,7 @@ export function softUserId(req: Request): number | null {
 }
 
 const CHALLENGE_POINTS: Record<string, number> = {
+  // 1-star
   scoreBoardChallenge: 10,
   privacyPolicyChallenge: 10,
   errorHandlingChallenge: 10,
@@ -37,6 +38,15 @@ const CHALLENGE_POINTS: Record<string, number> = {
   repetitiveRegistrationChallenge: 10,
   missingEncodingChallenge: 10,
   outdatedAllowlistChallenge: 10,
+  // 2-star
+  adminSectionChallenge: 20,
+  loginAdminChallenge: 20,
+  emptyUserRegistrationChallenge: 20,
+  fiveStarFeedbackChallenge: 20,
+  viewBasketChallenge: 20,
+  weirdCryptoChallenge: 20,
+  whiteHatChallenge: 20,
+  // meta
   'visit-developer-page': 10,
   'first-purchase': 25,
 };

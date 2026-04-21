@@ -16,6 +16,15 @@ const CHALLENGE_CATALOG: Record<string, number> = {
   'missingEncodingChallenge':       10,
   'outdatedAllowlistChallenge':     10,
 
+  // 2-star
+  'adminSectionChallenge':          20,
+  'loginAdminChallenge':            20,
+  'emptyUserRegistrationChallenge': 20,
+  'fiveStarFeedbackChallenge':      20,
+  'viewBasketChallenge':            20,
+  'weirdCryptoChallenge':           20,
+  'whiteHatChallenge':              20,
+
   // Exploration / meta
   'visit-developer-page': 10,
   'first-purchase': 25,
