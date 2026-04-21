@@ -1,0 +1,30 @@
+<header class="navbar">
+  <div class="logo">
+    <a routerLink="/" style="color: #F39C12; font-size: 1.5rem; font-weight: 900; text-decoration: none;">
+      🍔 TASTY BURGER
+    </a>
+  </div>
+
+  <nav class="nav-links">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">HOME</a>
+    <a routerLink="/catalog" routerLinkActive="active">OUR MENU</a>
+    <a routerLink="/catalog" routerLinkActive="active">SHOP</a>
+    <a href="#contact">CONTACT</a>
+  </nav>
+
+  <div class="nav-actions">
+    <a routerLink="/cart" class="cart-icon">
+      🛒 <span class="badge" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
+    </a>
+    
+    <ng-container *ngIf="!isAuthenticated; else authenticatedMenu">
+      <a routerLink="/auth/login" class="btn btn-primary login-btn">Login</a>
+    </ng-container>
+    
+    <ng-template #authenticatedMenu>
+      <a routerLink="/profile" class="profile-link">Profile</a>
+      <span style="margin: 0 10px; color: #fff;">|</span>
+      <a href="javascript:void(0)" (click)="logout()" class="logout-link">Sair</a>
+    </ng-template>
+  </div>
+</header>

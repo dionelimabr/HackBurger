@@ -1,0 +1,55 @@
+<div class="hero-section">
+  <div class="hero-content">
+    <span class="price-badge">ONLY<br><span>৳450</span></span>
+    <h1>NEW<br>BURGER<br><small>WITH ONION</small></h1>
+    <p>Savor the perfect bite! Our new burger with onion is a juicy, flavor-packed delight, layered with fresh, crispy onions, premium beef, and a melt-in-your-mouth bun. A taste so good, you won't want to share!</p>
+    <button class="btn btn-secondary" routerLink="/catalog">ORDER NOW</button>
+  </div>
+  <div class="hero-image">
+    <!-- Imagem de placeholder baseada no screenshot -->
+    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop" style="border-radius:20px" alt="Delicious Burger">
+  </div>
+</div>
+
+<section class="featured-section">
+  <div class="section-title">
+    <h2>OUR CRAZY BURGERS</h2>
+    <p>Get ready for a wild ride of flavors! Our crazy burgers are loaded with juicy patties, bold toppings, and irresistible sauces, all stacked on a perfectly toasted bun. Whether you like it cheesy, or extra meaty, we've got a burger that will blow your mind!</p>
+  </div>
+
+  <div class="product-grid">
+    <!-- Usaríamos o componente app-product-card aqui, simplificando para o layout: -->
+    <div class="product-card" *ngFor="let p of featuredProducts">
+      <div class="product-img">
+        <img [src]="p.image_url" [alt]="p.name" onerror="this.src='https://via.placeholder.com/300x200?text=Burger'">
+      </div>
+      <div class="product-info">
+        <div class="rating">
+          <span class="stars">★★★★★</span>
+          <span class="heart">♡</span>
+        </div>
+        <h3>{{ p.name }}</h3>
+        <p class="ingredients">{{ p.description }}</p>
+        <div class="price">
+          <span class="amount">৳{{ p.price }}</span>
+          <button class="btn btn-secondary btn-sm" (click)="null">Add To Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Promo App Section -->
+<section class="app-promo">
+  <div class="promo-content">
+    <h2>DOWNLOAD MOBILE APP AND <br><span>SAVE UP TO 20%</span></h2>
+    <p>Enjoy your favorite burgers anytime, anywhere! Download our mobile app today and get exclusive deals, easy ordering, and a special 20% discount on your first purchase. Deliciousness is just a tap away!</p>
+    <div class="store-buttons">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" style="height: 40px; margin-right: 15px;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" style="height: 40px;">
+    </div>
+  </div>
+  <div class="promo-image">
+    <img src="assets/images/branding/app-mockup.png" alt="App Preview" onerror="this.src='https://via.placeholder.com/300x400?text=App+Mockup'">
+  </div>
+</section>
