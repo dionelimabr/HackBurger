@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -20,6 +21,7 @@ interface TocItem { id: string; text: string; level: number; }
   selector: 'app-docs-page',
   templateUrl: './docs-page.component.html',
   styleUrls: ['./docs-page.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class DocsPageComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('content') content?: ElementRef<HTMLElement>;
