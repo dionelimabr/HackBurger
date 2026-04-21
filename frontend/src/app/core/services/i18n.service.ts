@@ -44,6 +44,7 @@ const DICT: Record<Lang, Record<string, string>> = {
     'footer.rights': 'Todos os direitos reservados.',
     'footer.docs': 'Documentação',
     'footer.developer': 'Desenvolvedor',
+    'footer.ranking': 'Ranking',
 
     'card.add': 'Adicionar',
   },
@@ -87,6 +88,7 @@ const DICT: Record<Lang, Record<string, string>> = {
     'footer.rights': 'All rights reserved.',
     'footer.docs': 'Documentation',
     'footer.developer': 'Developer',
+    'footer.ranking': 'Leaderboard',
 
     'card.add': 'Add',
   },

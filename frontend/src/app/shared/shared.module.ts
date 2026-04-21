@@ -8,6 +8,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ToastNotificationComponent } from './components/toast-notification/toast-notification.component';
 import { SearchPaletteComponent } from './components/search-palette/search-palette.component';
+import { LeaderboardModalComponent } from './components/leaderboard-modal/leaderboard-modal.component';
+import { ConfettiOverlayComponent } from './components/confetti-overlay/confetti-overlay.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -18,7 +20,9 @@ import { FormsModule } from '@angular/forms';
     FooterComponent,
     ProductCardComponent,
     ToastNotificationComponent,
-    SearchPaletteComponent
+    SearchPaletteComponent,
+    LeaderboardModalComponent,
+    ConfettiOverlayComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +38,9 @@ import { FormsModule } from '@angular/forms';
     FooterComponent,
     ProductCardComponent,
     ToastNotificationComponent,
-    SearchPaletteComponent
+    SearchPaletteComponent,
+    LeaderboardModalComponent,
+    ConfettiOverlayComponent
   ]
 })
 export class SharedModule { }

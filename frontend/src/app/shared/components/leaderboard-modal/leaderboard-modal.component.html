@@ -1,0 +1,68 @@
+<div class="lb-backdrop" *ngIf="open" (click)="close()">
+  <div class="lb-modal" (click)="$event.stopPropagation()" role="dialog" aria-modal="true">
+    <header class="lb-head">
+      <div class="lb-title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+          <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+          <path d="M4 22h16"/>
+          <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+          <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+          <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+        </svg>
+        <h2>Ranking HackBurger</h2>
+      </div>
+      <button type="button" class="lb-close" (click)="close()" aria-label="Fechar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </header>
+
+    <div class="lb-me" *ngIf="myStats">
+      <div>
+        <span class="mini-label">Meus pontos</span>
+        <strong class="mini-points">{{ myStats.points }}</strong>
+      </div>
+      <div>
+        <span class="mini-label">Desafios</span>
+        <strong>{{ myStats.challengesCompleted }} / {{ myStats.totalChallenges }}</strong>
+      </div>
+    </div>
+
+    <div class="lb-body">
+      <p class="lb-error" *ngIf="error">{{ error }}</p>
+      <p class="lb-loading" *ngIf="loading">Carregando ranking...</p>
+      <p class="lb-empty" *ngIf="!loading && !error && !entries.length">
+        Ninguém pontuou ainda. Complete desafios para aparecer aqui!
+      </p>
+
+      <ol class="lb-list" *ngIf="!loading && entries.length">
+        <li
+          *ngFor="let e of entries; trackBy: trackById"
+          class="lb-row"
+          [class.gold]="e.rank === 1"
+          [class.silver]="e.rank === 2"
+          [class.bronze]="e.rank === 3">
+          <div class="rank" [attr.data-rank]="e.rank">#{{ e.rank }}</div>
+          <div class="avatar">
+            <img *ngIf="avatarSrc(e)" [src]="avatarSrc(e)" [alt]="e.name">
+            <span *ngIf="!avatarSrc(e)" class="fallback">{{ initial(e.name) }}</span>
+          </div>
+          <div class="info">
+            <span class="name">{{ e.name }}</span>
+            <span class="meta">{{ e.challenges_completed }} desafio(s)</span>
+          </div>
+          <div class="points">
+            <strong>{{ e.points }}</strong>
+            <span>pts</span>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <footer class="lb-foot">
+      <span>Cada desafio OWASP concluído soma pontos. <br>Explore a plataforma e ganhe!</span>
+    </footer>
+  </div>
+</div>

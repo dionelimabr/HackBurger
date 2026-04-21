@@ -8,6 +8,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { ScoreService } from '../../core/services/score.service';
 
 interface Particle {
   x: number;
@@ -76,12 +77,14 @@ export class DeveloperComponent implements AfterViewInit, OnDestroy {
   private height = 0;
   private mouse = { x: -9999, y: -9999 };
 
-  constructor(private zone: NgZone) {}
+  constructor(private zone: NgZone, private scoreService: ScoreService) {}
 
   ngAfterViewInit(): void {
     this.setupCanvas();
     this.setupReveal();
     this.zone.runOutsideAngular(() => this.animate());
+    // Award user for discovering the developer page (silent if not authenticated).
+    setTimeout(() => this.scoreService.tryComplete('visit-developer-page'), 1200);
   }
 
   ngOnDestroy(): void {

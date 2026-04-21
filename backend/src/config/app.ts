@@ -18,6 +18,7 @@ import orderRoutes   from '../routes/order.routes';
 import userRoutes    from '../routes/user.routes';
 import paymentRoutes from '../routes/payment.routes';
 import adminRoutes   from '../routes/admin.routes';
+import scoreRoutes   from '../routes/score.routes';
 
 const app: Application = express();
 
@@ -48,6 +49,7 @@ app.use('/api/orders',   orderRoutes);
 app.use('/api/users',    userRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/admin',    adminRoutes);
+app.use('/api/scores',   scoreRoutes);
 
 // Swagger docs
 setupSwagger(app);
