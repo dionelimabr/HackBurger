@@ -36,15 +36,6 @@ export class DocsPageComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {
     marked.setOptions({ gfm: true, breaks: false });
-    marked.use({
-      renderer: {
-        code({ text, lang }: { text: string; lang?: string }) {
-          const language = lang && hljs.getLanguage(lang) ? lang : 'plaintext';
-          const highlighted = hljs.highlight(text, { language }).value;
-          return `<pre><code class="hljs language-${language}">${highlighted}</code></pre>`;
-        },
-      },
-    });
   }
 
   ngOnInit(): void {
@@ -80,6 +71,19 @@ export class DocsPageComponent implements OnInit, OnDestroy, AfterViewChecked {
     const container = document.createElement('div');
     container.innerHTML = raw;
 
+    // highlight code blocks
+    container.querySelectorAll('pre > code').forEach((el) => {
+      const codeEl = el as HTMLElement;
+      const langClass = Array.from(codeEl.classList).find((c) => c.startsWith('language-'));
+      const lang = langClass ? langClass.replace('language-', '') : '';
+      const text = codeEl.textContent || '';
+      const language = lang && hljs.getLanguage(lang) ? lang : 'plaintext';
+      const result = hljs.highlight(text, { language });
+      codeEl.innerHTML = result.value;
+      codeEl.classList.add('hljs');
+    });
+
+    // collect TOC
     const toc: TocItem[] = [];
     container.querySelectorAll('h2, h3').forEach((el) => {
       const text = el.textContent || '';

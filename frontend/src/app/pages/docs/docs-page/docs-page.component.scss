@@ -80,6 +80,10 @@
     padding-left: 1.5rem;
     li { margin: .3rem 0; }
   }
+  ul { list-style: disc; }
+  ol { list-style: decimal; }
+  ul ul, ol ol, ul ol, ol ul { margin-bottom: .25rem; }
+  ul ul { list-style: circle; }
 
   blockquote {
     margin: 1rem 0;
