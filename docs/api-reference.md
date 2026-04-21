@@ -20,6 +20,27 @@ Authorization: Bearer <jwt>
 
 Também há um Swagger interativo em `http://localhost:3000/api/docs` com payloads e respostas reais.
 
+## Gamificação e Ranking (/api/scores)
+
+### GET /api/scores/leaderboard
+Público. Retorna os top 20 usuários com mais pontos no formato `{ "user_id": ..., "points": ..., "rank": ... }`.
+
+### GET /api/scores/catalog
+Público. Lista os desafios ativos e o respectivo valor em pontos de cada um.
+
+### GET /api/scores/me
+Requer Auth. Retorna os pontos totais, desafios completos e histórico do usuário autenticado.
+
+### POST /api/scores/complete
+Requer Auth. Submete a conclusão de um desafio. Idempotente (se já feito, não pontua).
+
+Body:
+```json
+{
+  "challengeKey": "owasp-sqli-login"
+}
+```
+
 ## Autenticação
 
 ### POST /api/auth/register

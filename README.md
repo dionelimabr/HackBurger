@@ -19,6 +19,13 @@ A plataforma está estritamente separada em seis camadas arquitetônicas para es
 5. **Monitoramento e Observabilidade**: O Node expõe rotas de métricas brutas formatadas para ingestão do Prometheus, com visibilidade e alertas refletidos em dashboards customizados e persistentes do Grafana.
 6. **Deploy e DevOps**: Integralmente empacotado através do Docker em builds multi-stage. O repositório abriga também manifestos de kubernetes para deploy distribuído, automatizador Vagrant e pipelines CI/CD do GitHub Actions.
 
+### Gamificação e Ranking (Score Board)
+Para simular um ambiente estilo CTF (Capture The Flag), a plataforma conta com um **Sistema de Ranking e Gamificação**:
+- Cada vulnerabilidade explorada com sucesso ou Easter Egg descoberto pontua no ranking.
+- O progresso é registrado através do `ScoreService` e salvo na tabela `user_scores`.
+- Funcionalidades como o Score Board (Ranking) com feedback visual em tempo real (ex: confetti ao pontuar).
+- Existem vários desafios inspirados no OWASP Top 10 e no Juice Shop, cada um com pontuações variadas.
+
 ## Pré-requisitos de Execução
 
 Para hospedar o projeto localmente, garanta que os dependências abaixo estejam rodando na sua máquina:
