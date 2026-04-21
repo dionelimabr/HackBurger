@@ -1,0 +1,33 @@
+<div class="docs-layout-inner">
+  <article class="docs-article">
+    <div class="docs-breadcrumb">
+      <span>DOCUMENTAÇÃO</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+      <span class="current">{{ slug }}.md</span>
+    </div>
+
+    <div *ngIf="loading" class="state">Carregando…</div>
+    <div *ngIf="notFound" class="state error">
+      <h1>Página não encontrada</h1>
+      <p>O documento <code>{{ slug }}.md</code> não existe.</p>
+    </div>
+
+    <div
+      *ngIf="!loading && !notFound"
+      #content
+      class="markdown-body"
+      [innerHTML]="html">
+    </div>
+  </article>
+
+  <aside class="docs-toc" *ngIf="toc.length && !loading && !notFound">
+    <h4>Nesta página</h4>
+    <ul>
+      <li *ngFor="let t of toc" [class.level-3]="t.level === 3">
+        <a [class.active]="activeId === t.id" (click)="scrollTo(t.id)">{{ t.text }}</a>
+      </li>
+    </ul>
+  </aside>
+</div>

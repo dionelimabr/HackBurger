@@ -1,0 +1,43 @@
+<div class="docs-shell">
+  <aside class="docs-sidebar" [class.open]="sidebarOpen">
+    <div class="sidebar-header">
+      <a routerLink="/" class="back-home">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"/>
+          <polyline points="12 19 5 12 12 5"/>
+        </svg>
+        <span>HackBurger</span>
+      </a>
+      <span class="version">docs v1.0</span>
+    </div>
+
+    <nav>
+      <div class="section" *ngFor="let s of nav">
+        <h4>{{ s.section }}</h4>
+        <ul>
+          <li *ngFor="let i of s.items">
+            <a [routerLink]="['/docs', i.slug]"
+               routerLinkActive="active"
+               (click)="closeSidebar()">
+              {{ i.title }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+
+  <button class="sidebar-toggle" (click)="toggleSidebar()" aria-label="Menu">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="3" y1="12" x2="21" y2="12"/>
+      <line x1="3" y1="6"  x2="21" y2="6"/>
+      <line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+
+  <div class="docs-backdrop" *ngIf="sidebarOpen" (click)="closeSidebar()"></div>
+
+  <main class="docs-main">
+    <router-outlet></router-outlet>
+  </main>
+</div>
