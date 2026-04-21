@@ -23,13 +23,22 @@ import { Component } from '@angular/core';
         </div>
         <div class="bottom">
           <span>© {{ year }} HackBurger. Todos os direitos reservados.</span>
-          <a routerLink="/docs" class="docs-link" title="Documentação técnica">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-            </svg>
-            <span>Documentação</span>
-          </a>
+          <div class="bottom-links">
+            <a routerLink="/docs" class="foot-link" title="Documentação técnica">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+              <span>Documentação</span>
+            </a>
+            <a routerLink="/dev" class="foot-link dev-link" title="Sobre o desenvolvedor">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+              <span>Desenvolvedor</span>
+            </a>
+          </div>
         </div>
       </div>
     </footer>
@@ -76,7 +85,9 @@ import { Component } from '@angular/core';
             text-align: center;
           }
 
-          .docs-link {
+          .bottom-links { display: inline-flex; gap: .5rem; flex-wrap: wrap; }
+
+          .foot-link {
             display: inline-flex;
             align-items: center;
             gap: .45rem;
@@ -87,12 +98,25 @@ import { Component } from '@angular/core';
             font-weight: 600;
             font-size: .8rem;
             text-decoration: none;
-            transition: background .15s, border-color .15s, color .15s;
+            transition: background .15s, border-color .15s, color .15s, box-shadow .2s;
 
             &:hover {
               background: rgba($secondary-color, .12);
               border-color: $secondary-color;
               color: $secondary-color;
+            }
+
+            &.dev-link {
+              background: linear-gradient(135deg, rgba(34,211,238,.1), rgba(139,92,246,.1));
+              border-color: rgba(139,92,246,.35);
+              color: #c4b5fd;
+
+              &:hover {
+                background: linear-gradient(135deg, rgba(34,211,238,.2), rgba(139,92,246,.2));
+                border-color: #22d3ee;
+                color: #22d3ee;
+                box-shadow: 0 0 16px rgba(34,211,238,.25);
+              }
             }
           }
         }

@@ -33,6 +33,10 @@ const routes: Routes = [
     path: 'docs',
     loadChildren: () => import('./pages/docs/docs.module').then((m) => m.DocsModule),
   },
+  {
+    path: 'dev',
+    loadChildren: () => import('./pages/developer/developer.module').then((m) => m.DeveloperModule),
+  },
   { path: '**', redirectTo: '' }
 ];
 

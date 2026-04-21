@@ -1,0 +1,266 @@
+<div class="dev-page">
+  <canvas #bgCanvas class="dev-bg"></canvas>
+  <div class="dev-grid"></div>
+
+  <!-- HERO -->
+  <section class="dev-hero" id="top">
+    <div class="hero-inner">
+      <div class="badge reveal">
+        <span class="dot"></span>
+        <span>Especialista em Cibersegurança</span>
+      </div>
+      <h1 class="reveal">
+        <span class="glitch" data-text="Dione Lima">Dione Lima</span>
+      </h1>
+      <p class="role reveal">Especialista em Cibersegurança e Desenvolvedor da HackBurger</p>
+      <p class="sub reveal">
+        Segurança ofensiva, defensiva e arquitetura. Construindo sistemas resilientes e
+        formando profissionais em AppSec.
+      </p>
+      <div class="meta reveal">
+        <span><i class="ic ic-pin"></i> São Paulo, Brasil</span>
+        <span><i class="ic ic-cal"></i> 38 anos</span>
+        <span><i class="ic ic-lock"></i> Red / Blue / Green Team</span>
+      </div>
+      <div class="cta reveal">
+        <button class="btn btn-primary" (click)="scrollTo('experience')">
+          <span>Ver experiência</span>
+          <i class="ic ic-arrow"></i>
+        </button>
+        <button class="btn btn-ghost" (click)="scrollTo('contact')">
+          <span>Contato</span>
+        </button>
+      </div>
+    </div>
+    <div class="scroll-hint reveal">
+      <span>scroll</span>
+      <div class="line"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="dev-section" id="about">
+    <div class="section-head reveal">
+      <span class="section-kicker">01 — sobre</span>
+      <h2>Quem está por trás</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          <strong>Dione Lima</strong>, 38 anos, natural de São Paulo, Brasil, é o
+          desenvolvedor da plataforma <strong>HackBurger</strong> e especialista em
+          cibersegurança.
+        </p>
+        <p>
+          Graduado em Análise e Desenvolvimento de Sistemas pela <strong>Uninove</strong>
+          e com pós-graduação em Cibersegurança Ofensiva pela <strong>ACADI-TI</strong>,
+          Dione construiu uma sólida trajetória na área de segurança da informação. Ao
+          longo de sua formação, conquistou certificações de destaque como
+          <strong>CNSE</strong>, <strong>CEH v12</strong>, <strong>CSAE</strong> e
+          <strong>CPTE</strong>, consolidando expertise em defesa, arquitetura de
+          segurança e testes de invasão.
+        </p>
+        <p>
+          Com uma abordagem prática e orientada a cenários reais, seu trabalho é focado
+          em identificar vulnerabilidades, fortalecer sistemas e contribuir para ambientes
+          digitais mais seguros e resilientes.
+        </p>
+      </div>
+      <div class="about-card reveal">
+        <div class="terminal">
+          <div class="term-head">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="term-title">~/dione — zsh</span>
+          </div>
+          <pre class="term-body"><span class="prompt">$</span> whoami
+<span class="out">dione_lima</span>
+<span class="prompt">$</span> cat profile.json
+<span class="out">{{ '{' }}
+  <span class="k">"name"</span>: <span class="s">"Dione Lima"</span>,
+  <span class="k">"role"</span>: <span class="s">"Cybersecurity Specialist"</span>,
+  <span class="k">"location"</span>: <span class="s">"São Paulo, BR"</span>,
+  <span class="k">"teams"</span>: [<span class="s">"red"</span>, <span class="s">"blue"</span>, <span class="s">"green"</span>],
+  <span class="k">"focus"</span>: <span class="s">"AppSec &amp; PenTest"</span>
+{{ '}' }}</span>
+<span class="prompt">$</span> <span class="cursor">_</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section class="dev-section" id="certifications">
+    <div class="section-head reveal">
+      <span class="section-kicker">02 — formação e certificações</span>
+      <h2>Credenciais</h2>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-card reveal" *ngFor="let c of certifications; let i = index" [style.animationDelay.ms]="i * 80">
+        <div class="cert-glow"></div>
+        <div class="cert-icon" [attr.data-icon]="c.icon">
+          <svg *ngIf="c.icon === 'shield'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/>
+          </svg>
+          <svg *ngIf="c.icon === 'target'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+          </svg>
+          <svg *ngIf="c.icon === 'layers'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 12 12 17 22 12"/><polyline points="2 17 12 22 22 17"/>
+          </svg>
+          <svg *ngIf="c.icon === 'zap'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+        </div>
+        <div class="cert-code">{{ c.code }}</div>
+        <div class="cert-name">{{ c.name }}</div>
+        <div class="cert-desc">{{ c.desc }}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIALTIES -->
+  <section class="dev-section" id="experience">
+    <div class="section-head reveal">
+      <span class="section-kicker">03 — especialidades</span>
+      <h2>Áreas de atuação</h2>
+    </div>
+    <div class="skills">
+      <div class="skill reveal" *ngFor="let s of specialties; let i = index" [style.animationDelay.ms]="i * 100">
+        <div class="skill-head">
+          <span class="skill-name">{{ s.name }}</span>
+          <span class="skill-level">{{ s.level }}%</span>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-fill" [style.width.%]="s.level"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="dev-section mission" id="mission">
+    <div class="section-head reveal">
+      <span class="section-kicker">04 — missão</span>
+      <h2>Propósito profissional</h2>
+    </div>
+    <blockquote class="mission-quote reveal">
+      “Proteger organizações contra ameaças cibernéticas, criar ambientes digitais
+      seguros e colaborar com equipes multidisciplinares — promovendo segurança,
+      inovação e confiabilidade no mundo digital.”
+    </blockquote>
+  </section>
+
+  <!-- PROJECT / HACKBURGER -->
+  <section class="dev-section" id="project">
+    <div class="section-head reveal">
+      <span class="section-kicker">05 — projeto em destaque</span>
+      <h2>HackBurger</h2>
+    </div>
+    <div class="project-grid">
+      <div class="project-text reveal">
+        <p class="lead">Bem-vindo ao HackBurger.</p>
+        <p>
+          Aplicação de e-commerce totalmente funcional, desenvolvida intencionalmente com
+          vulnerabilidades baseadas nas principais categorias do <strong>OWASP</strong>.
+          Seu objetivo é proporcionar um ambiente controlado para aprendizado e prática
+          em segurança da informação.
+        </p>
+        <p>
+          A plataforma foi criada para que profissionais, pesquisadores e estudantes
+          possam explorar falhas de segurança de forma ética e segura, simulando
+          situações reais enfrentadas no dia a dia da cibersegurança.
+        </p>
+        <p>
+          Por meio do HackBurger é possível identificar vulnerabilidades, compreender
+          técnicas de exploração e desenvolver habilidades práticas em
+          <strong>Application Security (AppSec)</strong>, tornando o aprendizado mais
+          dinâmico e próximo da realidade do mercado.
+        </p>
+        <div class="project-role">
+          <span class="role-tag">Criador</span>
+          <span class="role-tag">Desenvolvedor</span>
+          <span class="role-tag">Arquiteto de Segurança</span>
+        </div>
+        <div class="tech-stack">
+          <span class="tech" *ngFor="let t of tech">{{ t }}</span>
+        </div>
+        <div class="project-ctas">
+          <a routerLink="/" class="btn btn-primary"><span>Acessar plataforma</span></a>
+          <a routerLink="/docs" class="btn btn-ghost"><span>Documentação técnica</span></a>
+        </div>
+      </div>
+      <div class="project-mock reveal">
+        <div class="browser">
+          <div class="browser-head">
+            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+            <div class="url">https://hackburger.app</div>
+          </div>
+          <div class="browser-body">
+            <div class="mock-nav">
+              <span class="logo">HACKBURGER</span>
+              <span class="links"><i></i><i></i><i></i></span>
+            </div>
+            <div class="mock-hero">
+              <div class="mock-title">Hambúrgueres</div>
+              <div class="mock-sub">laboratório de AppSec</div>
+              <div class="mock-btn">Ver cardápio →</div>
+            </div>
+            <div class="mock-cards">
+              <div class="mock-card" *ngFor="let _ of [1,2,3]"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="dev-section contact" id="contact">
+    <div class="section-head reveal">
+      <span class="section-kicker">06 — contato</span>
+      <h2>Vamos conversar</h2>
+    </div>
+    <div class="contact-grid">
+      <a class="contact-card reveal" href="mailto:contato@dionelima.dev">
+        <div class="ic-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/>
+          </svg>
+        </div>
+        <div class="c-label">Email</div>
+        <div class="c-value">contato&#64;dionelima.dev</div>
+      </a>
+      <a class="contact-card reveal" href="https://www.linkedin.com/in/dione-lima/" target="_blank" rel="noopener">
+        <div class="ic-wrap">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.78C.8 0 0 .78 0 1.74v20.52C0 23.22.8 24 1.78 24h20.44c.98 0 1.78-.78 1.78-1.74V1.74C24 .78 23.2 0 22.22 0z"/>
+          </svg>
+        </div>
+        <div class="c-label">LinkedIn</div>
+        <div class="c-value">/in/dione-lima</div>
+      </a>
+      <a class="contact-card reveal" href="https://github.com/dionelimabr" target="_blank" rel="noopener">
+        <div class="ic-wrap">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2.03c-3.2.7-3.87-1.36-3.87-1.36-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.25 3.33.96.1-.74.4-1.25.72-1.54-2.55-.29-5.23-1.27-5.23-5.66 0-1.25.45-2.27 1.17-3.07-.12-.29-.51-1.45.11-3.03 0 0 .96-.31 3.15 1.17A10.9 10.9 0 0112 6.8c.97 0 1.95.13 2.86.38 2.19-1.48 3.15-1.17 3.15-1.17.62 1.58.23 2.74.11 3.03.73.8 1.17 1.82 1.17 3.07 0 4.4-2.68 5.36-5.24 5.65.41.36.78 1.07.78 2.17v3.22c0 .31.21.67.8.56 4.57-1.53 7.85-5.84 7.85-10.93C23.5 5.73 18.27.5 12 .5z"/>
+          </svg>
+        </div>
+        <div class="c-label">GitHub</div>
+        <div class="c-value">/dionelimabr</div>
+      </a>
+    </div>
+  </section>
+
+  <footer class="dev-footer">
+    <p class="tagline">
+      <span>“</span>
+      Segurança não é produto, é processo. Tecnologia é meio, proteção é missão.
+      <span>”</span>
+    </p>
+    <div class="copy">
+      © {{ year }} Dione Lima · Todos os direitos reservados · <a routerLink="/">HackBurger</a>
+    </div>
+  </footer>
+</div>
