@@ -1,9 +1,16 @@
 <div class="hero-section">
   <div class="hero-content">
-    <span class="price-badge">A PARTIR DE<br><span>R$ 32,90</span></span>
-    <h1>NOVO<br>BURGER<br><small>ARTESANAL</small></h1>
-    <p>Savor the perfect bite! Our new burger with onion is a juicy, flavor-packed delight, layered with fresh, crispy onions, premium beef, and a melt-in-your-mouth bun. A taste so good, you won't want to share!</p>
-    <button class="btn btn-secondary" routerLink="/catalog">ORDER NOW</button>
+    <span class="price-badge">
+      <span class="from">{{ 'home.priceFrom' | t }}</span>
+      <span class="amount">R$ 32,90</span>
+    </span>
+    <h1>
+      {{ 'home.new' | t }}<br>
+      {{ 'home.burger' | t }}<br>
+      <small>{{ 'home.artisan' | t }}</small>
+    </h1>
+    <p>{{ 'home.heroDesc' | t }}</p>
+    <button class="btn btn-secondary" routerLink="/catalog">{{ 'home.orderNow' | t }}</button>
   </div>
   <div class="hero-image">
     <div class="burger-wrap">
@@ -17,12 +24,11 @@
 
 <section class="featured-section">
   <div class="section-title">
-    <h2>OUR CRAZY BURGERS</h2>
-    <p>Get ready for a wild ride of flavors! Our crazy burgers are loaded with juicy patties, bold toppings, and irresistible sauces, all stacked on a perfectly toasted bun. Whether you like it cheesy, or extra meaty, we've got a burger that will blow your mind!</p>
+    <h2>{{ 'home.featuredTitle' | t }}</h2>
+    <p>{{ 'home.featuredDesc' | t }}</p>
   </div>
 
   <div class="product-grid">
-    <!-- Usaríamos o componente app-product-card aqui, simplificando para o layout: -->
     <div class="product-card" *ngFor="let p of featuredProducts">
       <div class="product-img">
         <img [src]="p.image_url" [alt]="p.name" onerror="this.src='https://via.placeholder.com/300x200?text=Burger'">
@@ -36,18 +42,17 @@
         <p class="ingredients">{{ p.description }}</p>
         <div class="price">
           <span class="amount">{{ p.price | currencyBrl }}</span>
-          <button class="btn btn-secondary btn-sm" type="button" (click)="addToCart(p)">Adicionar</button>
+          <button class="btn btn-secondary btn-sm" type="button" (click)="addToCart(p)">{{ 'home.addToCart' | t }}</button>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Promo App Section -->
 <section class="app-promo">
   <div class="promo-content">
-    <h2>DOWNLOAD MOBILE APP AND <br><span>SAVE UP TO 20%</span></h2>
-    <p>Enjoy your favorite burgers anytime, anywhere! Download our mobile app today and get exclusive deals, easy ordering, and a special 20% discount on your first purchase. Deliciousness is just a tap away!</p>
+    <h2>{{ 'home.appTitle' | t }} <br><span>{{ 'home.appHighlight' | t }}</span></h2>
+    <p>{{ 'home.appDesc' | t }}</p>
     <div class="store-buttons">
       <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" style="height: 40px; margin-right: 15px;">
       <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" style="height: 40px;">
