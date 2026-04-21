@@ -31,7 +31,7 @@ import { Component } from '@angular/core';
               </svg>
               <span>{{ 'footer.docs' | t }}</span>
             </a>
-            <a routerLink="/dev" class="foot-link dev-link" title="Sobre o desenvolvedor">
+            <a routerLink="/dev" class="foot-link" title="Sobre o desenvolvedor">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="16 18 22 12 16 6"/>
                 <polyline points="8 6 2 12 8 18"/>
@@ -106,18 +106,6 @@ import { Component } from '@angular/core';
               color: $secondary-color;
             }
 
-            &.dev-link {
-              background: linear-gradient(135deg, rgba(34,211,238,.1), rgba(139,92,246,.1));
-              border-color: rgba(139,92,246,.35);
-              color: #c4b5fd;
-
-              &:hover {
-                background: linear-gradient(135deg, rgba(34,211,238,.2), rgba(139,92,246,.2));
-                border-color: #22d3ee;
-                color: #22d3ee;
-                box-shadow: 0 0 16px rgba(34,211,238,.25);
-              }
-            }
           }
         }
       }

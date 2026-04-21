@@ -114,7 +114,7 @@ export class DeveloperComponent implements AfterViewInit, OnDestroy {
       vx: (Math.random() - 0.5) * 0.4,
       vy: (Math.random() - 0.5) * 0.4,
       r: 1 + Math.random() * 1.4,
-      hue: 200 + Math.random() * 80, // 200-280 = cyan → violet
+      hue: 10 + Math.random() * 35, // 10-45 = red → amber (HackBurger palette)
     };
   }
 
@@ -140,7 +140,7 @@ export class DeveloperComponent implements AfterViewInit, OnDestroy {
       if (p.y < 0 || p.y > height) p.vy *= -1;
 
       ctx.beginPath();
-      ctx.fillStyle = `hsla(${p.hue}, 90%, 65%, .8)`;
+      ctx.fillStyle = `hsla(${p.hue}, 70%, 55%, .75)`;
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
       ctx.fill();
     }
@@ -155,7 +155,7 @@ export class DeveloperComponent implements AfterViewInit, OnDestroy {
         const d2 = dx * dx + dy * dy;
         if (d2 < 120 * 120) {
           const alpha = 1 - d2 / (120 * 120);
-          ctx.strokeStyle = `hsla(${(a.hue + b.hue) / 2}, 90%, 65%, ${alpha * 0.35})`;
+          ctx.strokeStyle = `hsla(${(a.hue + b.hue) / 2}, 65%, 50%, ${alpha * 0.3})`;
           ctx.lineWidth = 0.6;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
@@ -170,7 +170,7 @@ export class DeveloperComponent implements AfterViewInit, OnDestroy {
       const dm2 = dmx * dmx + dmy * dmy;
       if (dm2 < 140 * 140) {
         const alpha = 1 - dm2 / (140 * 140);
-        ctx.strokeStyle = `hsla(${particles[i].hue}, 90%, 70%, ${alpha * 0.6})`;
+        ctx.strokeStyle = `hsla(${particles[i].hue}, 70%, 60%, ${alpha * 0.5})`;
         ctx.lineWidth = 0.8;
         ctx.beginPath();
         ctx.moveTo(particles[i].x, particles[i].y);
