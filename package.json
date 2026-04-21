@@ -1,0 +1,12 @@
+{
+  "name": "hackburger-monorepo",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "docker-compose up -d",
+    "stop": "docker-compose down",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm start",
+    "test:unit": "jest --config tests/jest.config.ts",
+    "test:e2e": "cd tests && npx cypress open"
+  }
+}

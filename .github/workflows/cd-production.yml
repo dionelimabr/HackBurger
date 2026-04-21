@@ -1,0 +1,22 @@
+name: CD - Production
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-prod:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Build Images
+      run: |
+        docker build -t hackburger/backend:latest -f infra/docker/Dockerfile.backend .
+        docker build -t hackburger/frontend:latest -f infra/docker/Dockerfile.frontend .
+        
+    - name: Push Images
+      run: echo "Pushing to registry... (Simulated)"
+      
+    - name: Deploy to Production Kubernetes
+      run: echo "kubectl apply -f infra/kubernetes... (Simulated)"

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: hackburger
+data:
+  NODE_ENV: production
+  PORT: "3000"
+  JWT_SECRET: super-secret-prod-key
+  JWT_EXPIRES_IN: 1d
+  CORS_ORIGIN: "http://localhost"

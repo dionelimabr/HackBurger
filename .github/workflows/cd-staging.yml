@@ -1,0 +1,21 @@
+name: CD - Staging
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    needs: [] # In a real scenario, this would depend on the CI job
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Build Images
+      run: |
+        docker build -t hackburger/backend:staging -f infra/docker/Dockerfile.backend .
+        docker build -t hackburger/frontend:staging -f infra/docker/Dockerfile.frontend .
+        
+    - name: Deploy to Staging Cluster
+      run: echo "Deploying to staging... (Simulated)"

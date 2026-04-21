@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: ./infra/docker/Dockerfile.backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./database:/app/database
+      - ./logs:/app/logs
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    depends_on:
+      - prometheus
+
+  frontend:
+    build:
+      context: .
+      dockerfile: ./infra/docker/Dockerfile.frontend
+    ports:
+      - "4200:80"
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./monitoring/prometheus:/etc/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
