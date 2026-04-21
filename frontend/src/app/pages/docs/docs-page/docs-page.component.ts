@@ -12,6 +12,8 @@ import { Subject } from 'rxjs';
 import { switchMap, takeUntil, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { marked } from 'marked';
+import { markedHighlight } from 'marked-highlight';
+import hljs from 'highlight.js/lib/common';
 
 interface TocItem { id: string; text: string; level: number; }
 
@@ -34,6 +36,15 @@ export class DocsPageComponent implements OnInit, OnDestroy, AfterViewChecked {
   private scrollHandler = () => this.updateActive();
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {
+    marked.use(
+      markedHighlight({
+        langPrefix: 'hljs language-',
+        highlight: (code, lang) => {
+          const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+          return hljs.highlight(code, { language }).value;
+        },
+      }),
+    );
     marked.setOptions({ gfm: true, breaks: false });
   }
 
