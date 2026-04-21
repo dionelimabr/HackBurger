@@ -43,6 +43,12 @@ export class DocsLayoutComponent {
       ],
     },
     {
+      section: 'Segurança / CTF',
+      items: [
+        { slug: 'challenges', title: 'Desafios CTF' },
+      ],
+    },
+    {
       section: 'Contribuição',
       items: [
         { slug: 'contributing', title: 'Como Contribuir' },

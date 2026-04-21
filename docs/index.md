@@ -13,6 +13,7 @@ A documentação aqui descreve como rodar o sistema localmente, como ele está o
 - Pagamento simulado com múltiplos métodos (pix, cartão, dinheiro).
 - Painel administrativo para CRUD de produtos, gestão de pedidos e usuários.
 - Métricas Prometheus expostas em `/metrics` e visualizáveis no Grafana.
+- Sistema de ranking CTF-style com desafios de segurança inspirados no OWASP Juice Shop, feedback visual por confetti e leaderboard público.
 
 ## Organização do repositório
 
@@ -39,6 +40,7 @@ Escolha pela sua função:
 - **Vou mexer no schema**: veja *Banco de Dados*.
 - **Vou subir em produção**: veja *Deployment*.
 - **Vou contribuir com PR**: veja *Como Contribuir*.
+- **Quero jogar os desafios CTF**: veja *Desafios CTF*.
 
 ## Convenções desta documentação
 

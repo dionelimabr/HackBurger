@@ -75,6 +75,34 @@ SQLite com `better-sqlite3` (síncrono). A escolha é intencional: zero operaç�
 
 Detalhes de schema e migrations estão em *Banco de Dados*.
 
+## Gamificação (CTF-style)
+
+HackBurger expõe um sistema de ranking inspirado no Juice Shop. Ele acompanha quais desafios de segurança cada usuário resolveu e mantém um leaderboard global.
+
+| Componente | Local |
+|---|---|
+| Migração SQL | `database/migrations/007_create_scores.sql` |
+| Tabelas | `user_scores`, `challenge_completions` |
+| Model | `backend/src/models/Score.model.ts` (usa `transaction` + `UNIQUE(user_id, challenge_key)` para idempotência) |
+| Service | `backend/src/services/score.service.ts` (catálogo de desafios + pontos) |
+| Routes | `backend/src/routes/score.routes.ts` em `/api/scores/*` |
+| Frontend Service | `frontend/src/app/core/services/score.service.ts` (observables `scored$` e `open$`) |
+| Modal | `frontend/src/app/shared/components/leaderboard-modal/*` |
+| Confetti | `frontend/src/app/shared/components/confetti-overlay/*` (canvas + toast +pts) |
+
+### Fluxo de pontuação
+
+1. O usuário dispara um exploit válido (ex: bypass de login via SQL injection).
+2. O backend detecta o payload malicioso e chama `ScoreModel.complete(userId, 'challengeKey', pontos)`.
+3. O `INSERT` em `challenge_completions` é único por `(user_id, challenge_key)` — replays não somam.
+4. O `user_scores.points` é incrementado via `ON CONFLICT DO UPDATE`.
+5. A resposta da API retorna `{ earned, totalPoints, alreadyCompleted }`.
+6. O `ScoreService` do frontend emite no `scored$`, o overlay de confetti renderiza partículas no topo e um toast "+X pts" flutua abaixo da navbar.
+
+### Catálogo de desafios
+
+Mantido em `backend/src/services/score.service.ts` como um `Record<string, number>`. Chaves desconhecidas são rejeitadas com 400.
+
 ## Observabilidade
 
 - **Logs**: `morgan` em formato `combined` para requisições HTTP.
