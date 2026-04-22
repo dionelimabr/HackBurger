@@ -129,6 +129,33 @@
       }
     }
 
+    .coins-btn {
+      height: 38px;
+      padding: 0 .65rem;
+      gap: .4rem;
+      color: #F39C12;
+      border-color: rgba(243, 156, 18, .25);
+      background: rgba(243, 156, 18, .08);
+      font-weight: 800;
+      transition: background .15s, border-color .15s, transform .08s, box-shadow .2s;
+
+      &:hover {
+        background: rgba(243, 156, 18, .16);
+        border-color: rgba(243, 156, 18, .45);
+        box-shadow: 0 0 12px rgba(243, 156, 18, .2);
+        color: #F39C12;
+      }
+
+      .coin-icon { flex-shrink: 0; }
+
+      .coins-value {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: .85rem;
+        min-width: 1.4ch;
+        text-align: center;
+      }
+    }
+
     .notif-wrap { position: relative; }
 
     .notif-dropdown {

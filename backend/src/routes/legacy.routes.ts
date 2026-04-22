@@ -13,8 +13,12 @@ const router = Router();
 // CTF: login_admin — classic boolean-based SQL injection in a string-concat
 // query. Payload example:  email="admin'--" password="anything"
 router.post('/login', (req: Request, res: Response) => {
+  const bcrypt = require('bcryptjs');
   const email    = String(req.body?.email    ?? '');
   const password = String(req.body?.password ?? '');
+
+  // Detect SQLi payloads early
+  const isSqli = /['"][^'"]*(--|\bor\b|\|\|)/i.test(email) || email.includes("'");
 
   // Deliberately vulnerable: do not do this in real code.
   const sql =
@@ -22,7 +26,16 @@ router.post('/login', (req: Request, res: Response) => {
     `WHERE email = '${email}' AND password = '${password}' AND is_active = 1 LIMIT 1`;
 
   try {
-    const user = getDb().prepare(sql).get() as { id: number; email: string; role: 'admin' | 'customer' } | undefined;
+    let user = getDb().prepare(sql).get() as { id: number; email: string; role: 'admin' | 'customer' } | undefined;
+
+    // Fallback: bcrypt comparison for hashed passwords (allows normal logins)
+    if (!user && !isSqli) {
+      const row = getDb().prepare('SELECT id, email, role, password FROM users WHERE email = ? AND is_active = 1')
+        .get(email) as { id: number; email: string; role: 'admin' | 'customer'; password: string } | undefined;
+      if (row && bcrypt.compareSync(password, row.password)) {
+        user = { id: row.id, email: row.email, role: row.role };
+      }
+    }
 
     if (!user) {
       res.status(401).json({ status: 'error', message: 'Credenciais inválidas' });
@@ -32,11 +45,19 @@ router.post('/login', (req: Request, res: Response) => {
     const token = signToken({ userId: user.id, email: user.email, role: user.role });
     (req as any).user = { userId: user.id };
 
-    // The player slipped an SQL payload past the "email" check
-    // (password is never actually matched in the DB because of the hash mismatch).
-    if (/['"][^'"]*(--|\bor\b|\|\|)/i.test(email) || email.includes("'")) {
-      awardChallenge(req, 'loginAdminChallenge');
+    // Award specific login challenges based on which user was accessed
+    if (isSqli) {
+      if (user.email === 'admin@hackburger.com' || user.role === 'admin') awardChallenge(req, 'loginAdminChallenge');
+      if (user.email === 'jim@juice-sh.op')    awardChallenge(req, 'loginJimChallenge');
+      if (user.email === 'bender@juice-sh.op') awardChallenge(req, 'loginBenderChallenge');
+      if (user.email === 'amy@juice-sh.op')    awardChallenge(req, 'loginAmyChallenge');
+      if (user.email === 'bjoern@juice-sh.op') awardChallenge(req, 'loginBjoernChallenge');
+      if (user.email === 'uvogin@juice-sh.op') awardChallenge(req, 'loginUvoginChallenge');
     }
+
+    // Password-based logins (weak passwords, OSINT)
+    if (user.email === 'mc.safesearch@juice-sh.op') awardChallenge(req, 'loginMcSafeSearchChallenge');
+    if (user.email === 'admin@hackburger.com' && !isSqli) awardChallenge(req, 'passwordStrengthChallenge');
 
     res.json({ status: 'success', data: { user, token } });
   } catch (err) {

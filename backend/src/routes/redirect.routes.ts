@@ -33,7 +33,13 @@ router.get('/', (req: Request, res: Response) => {
   try {
     const url = new URL(target);
     const hostMatches = ALLOWED_HOST_FRAGMENTS.some((frag) => frag.startsWith(url.host));
-    if (!hostMatches) awardChallenge(req, 'outdatedAllowlistChallenge');
+    if (!hostMatches) {
+      awardChallenge(req, 'outdatedAllowlistChallenge');
+      // 4-star allowlist bypass — more sophisticated patterns
+      if (/@|%40|%23|\\\\/.test(target)) {
+        awardChallenge(req, 'allowlistBypassChallenge');
+      }
+    }
   } catch {
     /* malformed URL — still redirect because the raw string contained a fragment */
   }

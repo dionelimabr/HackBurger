@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import Joi from 'joi';
 import { validate } from '../middlewares/validate.middleware';
-import { awardChallenge } from '../utils/challenge.util';
+import { awardChallenge, softUserId } from '../utils/challenge.util';
 
 const router = Router();
 
@@ -63,6 +63,18 @@ router.post(
 
     // CTF: Zero Stars — backend accepts ratings below the UI's minimum.
     if (rating === 0) awardChallenge(req, 'zeroStarsChallenge');
+
+    // CTF: forged_feedback — userId in body differs from actual authenticated user
+    const callerId = softUserId(req);
+    const bodyUserId = req.body.userId ?? req.body.user_id;
+    if (callerId && bodyUserId && Number(bodyUserId) !== callerId) {
+      awardChallenge(req, 'forgedFeedbackChallenge');
+    }
+
+    // CTF: bonus_payload — complex XSS payload (iframe with src)
+    if (/<iframe\s+.*src=/i.test(comment)) {
+      awardChallenge(req, 'bonusPayloadChallenge');
+    }
 
     res.status(201).json({ status: 'success', data: fb });
   },

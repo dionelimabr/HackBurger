@@ -5,6 +5,7 @@ import { ProductService } from '../../core/services/product.service';
 import { CartService } from '../../core/services/cart.service';
 import { AuthService } from '../../core/auth/auth.service';
 import { ToastService } from '../../core/services/toast.service';
+import { ScoreService } from '../../core/services/score.service';
 
 @Component({
   selector: 'app-catalog',
@@ -23,6 +24,7 @@ export class CatalogComponent implements OnInit {
     private cartService: CartService,
     private authService: AuthService,
     private toast: ToastService,
+    private scoreService: ScoreService,
     private router: Router,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
@@ -34,6 +36,12 @@ export class CatalogComponent implements OnInit {
       this.searchQuery = (p['q'] as string) || '';
       // Intentionally unsanitized render of the search term (CTF: DOM XSS).
       this.searchHtml = this.sanitizer.bypassSecurityTrustHtml(this.searchQuery);
+
+      // Detect XSS payloads and award challenge
+      if (/<[a-z][\s\S]*?>/i.test(this.searchQuery)) {
+        this.scoreService.tryComplete('domXssChallenge');
+      }
+
       this.loadProducts();
     });
   }

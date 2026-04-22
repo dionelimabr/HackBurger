@@ -23,7 +23,12 @@ export const CartController = {
 
   async addItem(req: AuthRequest, res: Response, next: NextFunction) {
     try {
-      const data = await CartService.addItem(req.user!.userId, req.body.productId, req.body.quantity ?? 1);
+      // CTF: manipulate_basket — accepts userId override to add items to another user's cart
+      const targetUserId = req.body.userId ? Number(req.body.userId) : req.user!.userId;
+      if (req.body.userId && Number(req.body.userId) !== req.user!.userId) {
+        awardChallenge(req, 'manipulateBasketChallenge');
+      }
+      const data = await CartService.addItem(targetUserId, req.body.productId, req.body.quantity ?? 1);
       sendSuccess(res, data, 'Item adicionado ao carrinho');
     } catch (err) { next(err); }
   },

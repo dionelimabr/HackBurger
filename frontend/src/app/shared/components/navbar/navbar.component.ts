@@ -1,8 +1,10 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../../../core/auth/auth.service';
 import { CartService } from '../../../core/services/cart.service';
 import { I18nService, Lang } from '../../../core/services/i18n.service';
 import { ThemeService, Theme } from '../../../core/services/theme.service';
+import { ScoreService } from '../../../core/services/score.service';
 import { SearchPaletteComponent } from '../search-palette/search-palette.component';
 import { environment } from '../../../../environments/environment';
 
@@ -18,17 +20,19 @@ interface NotificationItem {
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   @ViewChild('searchPalette') searchPalette?: SearchPaletteComponent;
   @ViewChild('notifRef') notifRef?: ElementRef<HTMLElement>;
 
   cartItemCount = 0;
   isAuthenticated = false;
   user: any = null;
+  totalPoints = 0;
 
   lang: Lang = 'pt';
   theme: Theme = 'dark';
   isMac = false;
+  private subs = new Subscription();
 
   notifOpen = false;
   notifications: NotificationItem[] = [
@@ -44,6 +48,7 @@ export class NavbarComponent implements OnInit {
     private themeService: ThemeService,
     private authService: AuthService,
     private cartService: CartService,
+    private scoreService: ScoreService,
   ) {}
 
   ngOnInit(): void {
@@ -59,9 +64,29 @@ export class NavbarComponent implements OnInit {
         this.cartService.getCart().subscribe((res: any) => {
           this.cartItemCount = res.data?.items?.length || 0;
         });
+        this.loadPoints();
       } else {
         this.cartItemCount = 0;
+        this.totalPoints = 0;
       }
+    });
+
+    // Update coins counter in real-time when a challenge is completed
+    this.subs.add(
+      this.scoreService.scored$.subscribe((ev) => {
+        this.totalPoints = ev.totalPoints;
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
+
+  private loadPoints(): void {
+    this.scoreService.me().subscribe({
+      next: (res: any) => { this.totalPoints = res?.data?.points ?? res?.data?.totalPoints ?? 0; },
+      error: () => { this.totalPoints = 0; },
     });
   }
 
@@ -89,6 +114,8 @@ export class NavbarComponent implements OnInit {
   userInitial(): string {
     return (this.user?.name || '?').charAt(0).toUpperCase();
   }
+
+  openRanking() { this.scoreService.openLeaderboard(); }
 
   logout() { this.authService.logout(); }
 

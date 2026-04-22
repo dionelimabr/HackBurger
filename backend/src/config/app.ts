@@ -27,6 +27,10 @@ import feedbackRoutes from '../routes/feedback.routes';
 import redirectRoutes from '../routes/redirect.routes';
 import legacyRoutes  from '../routes/legacy.routes';
 import miscRoutes    from '../routes/misc.routes';
+import ctfAuthRoutes from '../routes/ctf-auth.routes';
+import ctfDataRoutes from '../routes/ctf-data.routes';
+import ctfInjRoutes  from '../routes/ctf-injection.routes';
+import ctfMiscRoutes from '../routes/ctf-misc.routes';
 
 const app: Application = express();
 
@@ -63,6 +67,10 @@ app.use('/api/debug',    debugRoutes);
 app.use('/api/feedback', feedbackRoutes);
 app.use('/api/legacy',   legacyRoutes);
 app.use('/api/misc',     miscRoutes);
+app.use('/api/ctf/auth', ctfAuthRoutes);
+app.use('/api/ctf/data', ctfDataRoutes);
+app.use('/api/ctf/inject', ctfInjRoutes);
+app.use('/api/ctf',      ctfMiscRoutes);
 
 // Intentionally non-"/api" paths — these are part of the CTF exploration.
 app.use('/ftp',       ftpRoutes);
