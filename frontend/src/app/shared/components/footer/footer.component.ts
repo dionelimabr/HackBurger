@@ -25,7 +25,7 @@ import { ScoreService } from '../../../core/services/score.service';
         <div class="bottom">
           <span>© {{ year }} HackBurger. {{ 'footer.rights' | t }}</span>
           <div class="bottom-links">
-            <button type="button" class="foot-link rank-link" (click)="openRanking()" title="Ranking">
+            <a routerLink="/score-board" class="foot-link rank-link" title="Score Board CTF">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
                 <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
@@ -34,9 +34,9 @@ import { ScoreService } from '../../../core/services/score.service';
                 <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
                 <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
               </svg>
-              <span>{{ 'footer.ranking' | t }}</span>
-              <kbd class="kbd-hint">/rank</kbd>
-            </button>
+              <span>Score Board</span>
+              <kbd class="kbd-hint">Ctrl+M</kbd>
+            </a>
             <a routerLink="/docs" class="foot-link" title="Documentação técnica">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>

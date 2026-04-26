@@ -13,5 +13,5 @@ export const env = {
   SMTP_PORT:      parseInt(process.env.SMTP_PORT ?? '587', 10),
   SMTP_USER:      process.env.SMTP_USER      ?? '',
   SMTP_PASS:      process.env.SMTP_PASS      ?? '',
-  CORS_ORIGIN:    process.env.CORS_ORIGIN    ?? 'http://localhost:4200',
+  CORS_ORIGIN:    process.env.CORS_ORIGIN    ?? ['http://localhost:4200', 'http://172.27.176.109:4200'],
 };

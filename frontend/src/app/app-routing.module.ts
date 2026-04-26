@@ -37,6 +37,10 @@ const routes: Routes = [
     path: 'dev',
     loadChildren: () => import('./pages/developer/developer.module').then((m) => m.DeveloperModule),
   },
+  {
+    path: 'score-board',
+    loadChildren: () => import('./pages/score-board/score-board.module').then((m) => m.ScoreBoardModule),
+  },
   { path: '**', redirectTo: '' }
 ];
 

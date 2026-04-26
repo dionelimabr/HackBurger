@@ -1,0 +1,161 @@
+<div class="sb-page">
+
+  <!-- Header -->
+  <header class="sb-header">
+    <div class="sb-header-inner">
+      <div class="sb-title-wrap">
+        <div class="sb-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+            <path d="M4 22h16"/>
+            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+          </svg>
+        </div>
+        <div>
+          <h1>Score Board</h1>
+          <p class="sb-subtitle">Desafios HackBurger</p>
+        </div>
+      </div>
+
+      <div class="sb-stats" *ngIf="!loading && !error">
+        <div class="sb-stat">
+          <span class="sb-stat-val">{{ myPoints }}</span>
+          <span class="sb-stat-lbl">pontos</span>
+        </div>
+        <div class="sb-stat">
+          <span class="sb-stat-val">{{ solvedCount }}<span class="sb-stat-sep">/</span>{{ totalCount }}</span>
+          <span class="sb-stat-lbl">resolvidos</span>
+        </div>
+        <div class="sb-progress-wrap">
+          <div class="sb-progress-bar">
+            <div class="sb-progress-fill" [style.width.%]="progress"></div>
+          </div>
+          <span class="sb-progress-pct">{{ progress }}%</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Filters -->
+  <div class="sb-filters">
+    <div class="sb-filters-inner">
+
+      <div class="sb-search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" placeholder="Buscar desafio..." [(ngModel)]="searchTerm" (ngModelChange)="applyFilters()">
+      </div>
+
+      <div class="sb-filter-group">
+        <span class="sb-filter-lbl">Dificuldade</span>
+        <div class="sb-chips">
+          <button class="sb-chip" [class.active]="filterStars === 0" (click)="filterStars=0; applyFilters()">Todos</button>
+          <button class="sb-chip star-chip" *ngFor="let s of [1,2,3,4,5,6]" [class.active]="filterStars === s" (click)="filterStars=s; applyFilters()">
+            <ng-container *ngFor="let _ of starsArray(s)">★</ng-container>
+          </button>
+        </div>
+      </div>
+
+      <div class="sb-filter-group">
+        <span class="sb-filter-lbl">Status</span>
+        <div class="sb-chips">
+          <button class="sb-chip" [class.active]="filterSolved==='all'"     (click)="filterSolved='all';    applyFilters()">Todos</button>
+          <button class="sb-chip" [class.active]="filterSolved==='unsolved'" (click)="filterSolved='unsolved'; applyFilters()">Pendentes</button>
+          <button class="sb-chip" [class.active]="filterSolved==='solved'"   (click)="filterSolved='solved';   applyFilters()">Resolvidos</button>
+        </div>
+      </div>
+
+      <div class="sb-filter-group">
+        <span class="sb-filter-lbl">Categoria</span>
+        <select class="sb-select" [(ngModel)]="filterCategory" (ngModelChange)="applyFilters()">
+          <option value="">Todas</option>
+          <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+        </select>
+      </div>
+
+      <button class="sb-reset" (click)="resetFilters()" *ngIf="filterStars || filterCategory || filterSolved !== 'all' || searchTerm">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+        Limpar
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Body -->
+  <main class="sb-body">
+
+    <div class="sb-loading" *ngIf="loading">
+      <div class="sb-spinner"></div>
+      <span>Carregando desafios...</span>
+    </div>
+
+    <div class="sb-error" *ngIf="error">{{ error }}</div>
+
+    <div class="sb-count" *ngIf="!loading && !error">
+      <span>{{ filtered.length }} desafio(s) exibido(s)</span>
+    </div>
+
+    <div class="sb-grid" *ngIf="!loading && !error">
+
+      <div
+        class="sb-card"
+        *ngFor="let c of filtered"
+        [class.solved]="c.solved">
+
+        <!-- Card top accent bar -->
+        <div class="sb-card-bar" [style.background]="categoryColor(c.category)"></div>
+
+        <div class="sb-card-body">
+
+          <!-- Header row -->
+          <div class="sb-card-head">
+            <span class="sb-cat-badge" [style.background]="categoryColor(c.category) + '22'" [style.color]="categoryColor(c.category)" [style.border-color]="categoryColor(c.category) + '44'">
+              {{ c.category }}
+            </span>
+            <div class="sb-card-status" [class.is-solved]="c.solved">
+              <svg *ngIf="c.solved" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 6L9 17l-5-5"/>
+              </svg>
+              <svg *ngIf="!c.solved" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Title -->
+          <h3 class="sb-card-title">{{ c.title }}</h3>
+
+          <!-- Description -->
+          <p class="sb-card-desc">{{ c.description }}</p>
+
+          <!-- Footer row -->
+          <div class="sb-card-foot">
+            <div class="sb-stars">
+              <span class="sb-star filled" *ngFor="let _ of starsArray(c.stars)">★</span>
+              <span class="sb-star empty"  *ngFor="let _ of starsArray(6 - c.stars)">★</span>
+            </div>
+            <span class="sb-pts">{{ c.points }} pts</span>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="sb-empty" *ngIf="filtered.length === 0">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <p>Nenhum desafio encontrado para os filtros selecionados.</p>
+        <button class="sb-reset-btn" (click)="resetFilters()">Limpar filtros</button>
+      </div>
+
+    </div>
+  </main>
+
+</div>

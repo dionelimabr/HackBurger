@@ -32,6 +32,7 @@ import { FormsModule } from '@angular/forms';
   exports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     CurrencyBrlPipe,
     TranslatePipe,
     NavbarComponent,
