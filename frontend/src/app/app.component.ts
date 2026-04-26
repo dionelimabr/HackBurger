@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,15 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'frontend';
+  isAuthRoute = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    this.router.events
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe((e: any) => {
+        this.isAuthRoute = (e.urlAfterRedirects as string).startsWith('/auth');
+      });
+  }
 
   @HostListener('document:keydown', ['$event'])
   onKeydown(e: KeyboardEvent): void {
