@@ -35,7 +35,7 @@ import { ScoreService } from '../../../core/services/score.service';
                 <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
               </svg>
               <span>Score Board</span>
-              <kbd class="kbd-hint">Ctrl+M</kbd>
+              <kbd class="kbd-hint">⌘+M</kbd>
             </a>
             <a routerLink="/docs" class="foot-link" title="Documentação técnica">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

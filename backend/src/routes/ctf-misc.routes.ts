@@ -78,8 +78,8 @@ router.get('/support/logs/leaked', (req: Request, res: Response) => {
   awardChallenge(req, 'leakedAccessLogChallenge');
   const leaked = `# Backup do access log — NÃO DEVERIA ESTAR AQUI
 2024-01-15 admin: Alterou senha de suporte
-2024-01-16 support@juice-sh.op: reset token = J6aVjTgOpRs@?5l!Zkq2AYnCE8cC&omFB#Rt
-2024-01-17 bjoern: Download blueprint.stl`;
+2024-01-16 suporte@hackburger.com: reset token = Sup0rt3@HB!2024#Xk9mR
+2024-01-17 caio: Download blueprint.stl`;
   res.type('text/plain').send(leaked);
 });
 
@@ -445,7 +445,7 @@ router.get('/verify-premium', (req: Request, res: Response) => {
 // ─── Login Support Team ───
 router.post('/support-login', (req: Request, res: Response) => {
   const { email, password } = req.body ?? {};
-  if (email === 'support@juice-sh.op') {
+  if (email === 'suporte@hackburger.com') {
     const bcrypt = require('bcryptjs');
     const { getDb } = require('../config/database');
     const user = getDb().prepare('SELECT * FROM users WHERE email = ?').get(email) as any;

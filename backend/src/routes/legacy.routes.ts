@@ -48,15 +48,15 @@ router.post('/login', (req: Request, res: Response) => {
     // Award specific login challenges based on which user was accessed
     if (isSqli) {
       if (user.email === 'admin@hackburger.com' || user.role === 'admin') awardChallenge(req, 'loginAdminChallenge');
-      if (user.email === 'jim@juice-sh.op')    awardChallenge(req, 'loginJimChallenge');
-      if (user.email === 'bender@juice-sh.op') awardChallenge(req, 'loginBenderChallenge');
-      if (user.email === 'amy@juice-sh.op')    awardChallenge(req, 'loginAmyChallenge');
-      if (user.email === 'bjoern@juice-sh.op') awardChallenge(req, 'loginBjoernChallenge');
-      if (user.email === 'uvogin@juice-sh.op') awardChallenge(req, 'loginUvoginChallenge');
+      if (user.email === 'lucas@hackburger.com')   awardChallenge(req, 'loginJimChallenge');
+      if (user.email === 'roberto@hackburger.com')  awardChallenge(req, 'loginBenderChallenge');
+      if (user.email === 'ana@hackburger.com')      awardChallenge(req, 'loginAmyChallenge');
+      if (user.email === 'caio@hackburger.com')     awardChallenge(req, 'loginBjoernChallenge');
+      if (user.email === 'viktor@hackburger.com')   awardChallenge(req, 'loginUvoginChallenge');
     }
 
     // Password-based logins (weak passwords, OSINT)
-    if (user.email === 'mc.safesearch@juice-sh.op') awardChallenge(req, 'loginMcSafeSearchChallenge');
+    if (user.email === 'dj.trovao@hackburger.com') awardChallenge(req, 'loginMcSafeSearchChallenge');
     if (user.email === 'admin@hackburger.com' && !isSqli) awardChallenge(req, 'passwordStrengthChallenge');
 
     res.json({ status: 'success', data: { user, token } });

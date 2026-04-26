@@ -1,17 +1,20 @@
 @import '../../../styles/variables';
 
+$navbar-h: 70px;
+
 .sb-page {
   min-height: 100vh;
   background: #111113;
   color: $text-light;
   font-family: inherit;
+  padding-top: $navbar-h;
 }
 
 // ── Header ──────────────────────────────────────────────────────────────────
 .sb-header {
   background: linear-gradient(135deg, #1a1a1f 0%, #1e1e26 100%);
   border-bottom: 1px solid rgba(255,255,255,.06);
-  padding: 2.5rem 5% 2rem;
+  padding: 2rem 5% 1.75rem;
 }
 .sb-header-inner {
   max-width: 1300px;
@@ -25,10 +28,10 @@
 .sb-title-wrap {
   display: flex;
   align-items: center;
-  gap: 1.1rem;
+  gap: 1rem;
   h1 {
     margin: 0;
-    font-size: 1.75rem;
+    font-size: 1.6rem;
     font-weight: 800;
     letter-spacing: -.02em;
     background: linear-gradient(90deg, $text-light 60%, $secondary-color);
@@ -39,12 +42,12 @@
 }
 .sb-subtitle {
   margin: .2rem 0 0;
-  font-size: .85rem;
+  font-size: .82rem;
   color: rgba($text-light,.45);
 }
 .sb-icon {
-  width: 52px; height: 52px;
-  border-radius: 14px;
+  width: 48px; height: 48px;
+  border-radius: 12px;
   background: rgba($secondary-color,.12);
   border: 1px solid rgba($secondary-color,.2);
   display: flex; align-items: center; justify-content: center;
@@ -56,8 +59,11 @@
 .sb-stats {
   display: flex;
   align-items: center;
-  gap: 2rem;
-  flex-wrap: wrap;
+  gap: 1.5rem;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 12px;
+  padding: .75rem 1.25rem;
 }
 .sb-stat {
   display: flex;
@@ -65,27 +71,34 @@
   align-items: center;
 }
 .sb-stat-val {
-  font-size: 1.6rem;
+  font-size: 1.45rem;
   font-weight: 800;
   color: $secondary-color;
   font-variant-numeric: tabular-nums;
+  line-height: 1.1;
 }
 .sb-stat-sep { color: rgba($text-light,.3); margin: 0 .1rem; }
 .sb-stat-lbl {
-  font-size: .7rem;
+  font-size: .65rem;
   text-transform: uppercase;
   letter-spacing: .1em;
   color: rgba($text-light,.4);
+  margin-top: .1rem;
+}
+.sb-stats-divider {
+  width: 1px;
+  height: 36px;
+  background: rgba(255,255,255,.08);
 }
 .sb-progress-wrap {
   display: flex;
-  align-items: center;
-  gap: .65rem;
-  min-width: 140px;
+  flex-direction: column;
+  gap: .35rem;
+  min-width: 120px;
 }
 .sb-progress-bar {
-  flex: 1;
-  height: 6px;
+  width: 100%;
+  height: 5px;
   background: rgba(255,255,255,.08);
   border-radius: 999px;
   overflow: hidden;
@@ -97,27 +110,26 @@
   transition: width .5s ease;
 }
 .sb-progress-pct {
-  font-size: .78rem;
+  font-size: .72rem;
   font-weight: 700;
-  color: $secondary-color;
-  min-width: 2.8ch;
+  color: rgba($text-light,.5);
 }
 
 // ── Filters ──────────────────────────────────────────────────────────────────
 .sb-filters {
   background: #161618;
   border-bottom: 1px solid rgba(255,255,255,.05);
-  padding: 1rem 5%;
+  padding: .75rem 5%;
   position: sticky;
-  top: 0;
-  z-index: 100;
+  top: $navbar-h;
+  z-index: 90;
 }
 .sb-filters-inner {
   max-width: 1300px;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: .85rem;
   flex-wrap: wrap;
 }
 .sb-search {
@@ -127,11 +139,11 @@
   background: rgba(255,255,255,.05);
   border: 1px solid rgba(255,255,255,.1);
   border-radius: 8px;
-  padding: .45rem .75rem;
+  padding: .4rem .7rem;
   color: rgba($text-light,.45);
-  min-width: 200px;
+  min-width: 160px;
   flex: 1;
-  max-width: 280px;
+  max-width: 240px;
   transition: border-color .15s;
   &:focus-within {
     border-color: $secondary-color;
@@ -142,7 +154,7 @@
     border: none;
     outline: none;
     color: $text-light;
-    font-size: .85rem;
+    font-size: .82rem;
     width: 100%;
     &::placeholder { color: rgba($text-light,.35); }
   }
@@ -150,10 +162,10 @@
 .sb-filter-group {
   display: flex;
   align-items: center;
-  gap: .5rem;
+  gap: .4rem;
 }
 .sb-filter-lbl {
-  font-size: .72rem;
+  font-size: .68rem;
   text-transform: uppercase;
   letter-spacing: .1em;
   color: rgba($text-light,.35);
@@ -161,16 +173,16 @@
 }
 .sb-chips {
   display: flex;
-  gap: .3rem;
-  flex-wrap: wrap;
+  gap: .25rem;
+  flex-wrap: nowrap;
 }
 .sb-chip {
-  padding: .3rem .65rem;
+  padding: .25rem .55rem;
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,.12);
   background: transparent;
   color: rgba($text-light,.65);
-  font-size: .75rem;
+  font-size: .72rem;
   font-weight: 600;
   cursor: pointer;
   transition: all .15s;
@@ -182,29 +194,30 @@
     color: $secondary-color;
   }
 }
-.star-chip { font-size: .7rem; color: rgba($secondary-color,.6); letter-spacing: -.05em; }
+.star-chip { font-size: .68rem; color: rgba($secondary-color,.6); letter-spacing: -.05em; }
 .sb-select {
   background: rgba(255,255,255,.05);
   border: 1px solid rgba(255,255,255,.1);
   border-radius: 8px;
   color: $text-light;
-  font-size: .82rem;
-  padding: .35rem .65rem;
+  font-size: .78rem;
+  padding: .28rem .55rem;
   cursor: pointer;
   outline: none;
+  height: 28px;
   &:focus { border-color: $secondary-color; }
   option { background: #1e1e1e; }
 }
 .sb-reset {
   display: inline-flex;
   align-items: center;
-  gap: .35rem;
-  padding: .3rem .65rem;
+  gap: .3rem;
+  padding: .25rem .55rem;
   border-radius: 6px;
   border: 1px solid rgba($primary-color,.4);
   background: rgba($primary-color,.08);
   color: rgba($primary-color, .9);
-  font-size: .78rem;
+  font-size: .72rem;
   font-weight: 600;
   cursor: pointer;
   transition: all .15s;
@@ -402,8 +415,17 @@
 
 // ── Responsive ──────────────────────────────────────────────────────────────
 @media (max-width: $bp-tablet) {
-  .sb-header-inner { flex-direction: column; align-items: flex-start; }
-  .sb-stats { gap: 1.25rem; }
-  .sb-filters-inner { gap: .75rem; }
-  .sb-search { max-width: 100%; }
+  .sb-page { padding-top: 62px; }
+  .sb-filters { top: 62px; }
+  .sb-header-inner { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .sb-stats { gap: 1rem; padding: .6rem 1rem; }
+  .sb-stats-divider { height: 28px; }
+  .sb-filters-inner { gap: .6rem; }
+  .sb-search { max-width: 100%; flex: unset; width: 100%; }
+  .sb-chips { flex-wrap: wrap; }
+}
+
+@media (max-width: $bp-mobile) {
+  .sb-grid { grid-template-columns: 1fr; }
+  .sb-stat-val { font-size: 1.2rem; }
 }

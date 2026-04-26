@@ -6,17 +6,17 @@ const db = new Database(path.resolve(__dirname, '../hackburger.db'));
 
 // CTF users — intentionally weak passwords and guessable security questions
 const ctfUsers = [
-  { name: 'Jim',           email: 'jim@juice-sh.op',      password: 'ncc-1701',       role: 'customer', question: "Your eldest siblings middle name?", answer: 'Samuel' },
-  { name: 'Bender',        email: 'bender@juice-sh.op',   password: 'OhG0dPlease1nsique',  role: 'customer', question: "Company you first worked for?", answer: 'Stop n Drop' },
-  { name: 'Amy',           email: 'amy@juice-sh.op',      password: 'K1f...',         role: 'customer', question: "Your favorite movie?", answer: 'silence of the lambs' },
-  { name: 'Bjoern',        email: 'bjoern@juice-sh.op',   password: 'monkey summer',  role: 'customer', question: "Name of your favorite pet?", answer: 'Zaya' },
-  { name: 'MC SafeSearch',  email: 'mc.safesearch@juice-sh.op', password: 'Mr. N00dles', role: 'customer', question: "Name of your favorite pet?", answer: 'Mr. Noodles' },
-  { name: 'Morty',         email: 'morty@juice-sh.op',    password: 'focusOnSciworthy', role: 'customer', question: "Mothers maiden name?", answer: 'Smith' },
-  { name: 'Uvogin',        email: 'uvogin@juice-sh.op',   password: 'uvogin2023',     role: 'customer', question: "Your favorite movie?", answer: 'hunter x hunter' },
-  { name: 'Support Team',  email: 'support@juice-sh.op',  password: 'J6aVjTgOpRs@?5l!Zkq2AYnCE8cC&omFB#Rt', role: 'admin', question: "Best friend in school?", answer: 'Robin' },
-  { name: 'Accountant',    email: 'accountant@juice-sh.op', password: 'i am an ephemeral accountant created by SQL injection', role: 'customer', question: "Favorite color?", answer: 'green' },
-  { name: 'Chris',         email: 'chris@juice-sh.op',    password: 'love2code',      role: 'customer', question: "Your favorite place to walk?", answer: 'Daniel Boone National Forest' },
-  { name: 'GDPR Deleted',  email: 'gdpr-deleted@juice-sh.op', password: 'deletedUser123', role: 'customer', question: "Favorite car?", answer: 'tesla' },
+  { name: 'Lucas Faria',         email: 'lucas@hackburger.com',       password: 'flamengo1981',                                   role: 'customer', question: "Nome do meio do seu irmão mais velho?",   answer: 'Pedro' },
+  { name: 'Roberto Mota',        email: 'roberto@hackburger.com',     password: 'R0b0SemVerg0nha!',                               role: 'customer', question: "Primeira empresa onde trabalhou?",         answer: 'Sucata Digital' },
+  { name: 'Ana Carolina',        email: 'ana@hackburger.com',         password: 'B4n@n@Split',                                    role: 'customer', question: "Seu filme favorito?",                      answer: 'o silêncio das galinhas' },
+  { name: 'Caio Andrade',        email: 'caio@hackburger.com',        password: 'verao canario',                                  role: 'customer', question: "Nome do seu pet favorito?",               answer: 'Bolota' },
+  { name: 'DJ Trovão',           email: 'dj.trovao@hackburger.com',   password: 'Trovãozinho123',                                 role: 'customer', question: "Nome do seu pet favorito?",               answer: 'Trovãozinho' },
+  { name: 'Gabriel Stein',       email: 'gabriel@hackburger.com',     password: 'focus!Ciencia',                                  role: 'customer', question: "Nome de solteira da sua mãe?",             answer: 'Alves' },
+  { name: 'Viktor Sousa',        email: 'viktor@hackburger.com',      password: 'v1kt0r0sk4r',                                    role: 'customer', question: "Seu anime favorito?",                      answer: 'cavaleiros do zodiaco' },
+  { name: 'Suporte HackBurger',  email: 'suporte@hackburger.com',     password: 'Sup0rt3@HB!2024#Xk9mR',                         role: 'admin',    question: "Melhor amigo na escola?",                 answer: 'Carlos' },
+  { name: 'Contador',            email: 'contador@hackburger.com',    password: 'eu sou um contador efemero criado por SQL injection', role: 'customer', question: "Cor favorita?",              answer: 'azul' },
+  { name: 'Felipe Rocha',        email: 'felipe@hackburger.com',      password: 'trilhaDoBem',                                    role: 'customer', question: "Lugar favorito para caminhar?",           answer: 'Parque Estadual da Serra do Mar' },
+  { name: 'LGPD Deletado',       email: 'lgpd-deletado@hackburger.com', password: 'lgpd2023del',                                  role: 'customer', question: "Carro favorito?",                         answer: 'fusca' },
 ];
 
 const insertUser = db.prepare(`

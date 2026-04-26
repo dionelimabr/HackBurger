@@ -23,17 +23,19 @@
       <div class="sb-stats" *ngIf="!loading && !error">
         <div class="sb-stat">
           <span class="sb-stat-val">{{ myPoints }}</span>
-          <span class="sb-stat-lbl">pontos</span>
+          <span class="sb-stat-lbl">Pontos</span>
         </div>
+        <div class="sb-stats-divider"></div>
         <div class="sb-stat">
           <span class="sb-stat-val">{{ solvedCount }}<span class="sb-stat-sep">/</span>{{ totalCount }}</span>
-          <span class="sb-stat-lbl">resolvidos</span>
+          <span class="sb-stat-lbl">Resolvidos</span>
         </div>
+        <div class="sb-stats-divider"></div>
         <div class="sb-progress-wrap">
           <div class="sb-progress-bar">
             <div class="sb-progress-fill" [style.width.%]="progress"></div>
           </div>
-          <span class="sb-progress-pct">{{ progress }}%</span>
+          <span class="sb-progress-pct">{{ progress }}% concluído</span>
         </div>
       </div>
     </div>

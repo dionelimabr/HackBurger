@@ -256,7 +256,7 @@ Ao completar um desafio **pela primeira vez**, o sistema dispara:
 | Desafio | Ação no frontend |
 |---|---|
 | `scoreBoardChallenge` | Clique em "Ranking" no footer |
-| `domXssChallenge` | Ctrl+K → `<img src=x onerror=alert(1)>` → Enter |
+| `domXssChallenge` | ⌘+K → `<img src=x onerror=alert(1)>` → Enter |
 | `visit-developer-page` | Navegue para `/developer` |
 | `open-leaderboard` | Abra o modal de ranking |
 

@@ -35,10 +35,10 @@ router.post('/reset-password', (req: Request, res: Response) => {
   // Award challenges based on whose password was reset
   const fakeReq = { ...req, user: { userId: row.id } } as any;
   const challenges: Record<string, string[]> = {
-    'jim@juice-sh.op': ['resetJimPasswordChallenge'],
-    'bjoern@juice-sh.op': ['resetBjoernPasswordChallenge', 'bjoernFavoritePetChallenge'],
-    'morty@juice-sh.op': ['resetMortyPasswordChallenge'],
-    'chris@juice-sh.op': ['metaGeostakingChallenge', 'visualGeostakingChallenge'],
+    'lucas@hackburger.com':   ['resetJimPasswordChallenge'],
+    'caio@hackburger.com':    ['resetBjoernPasswordChallenge', 'bjoernFavoritePetChallenge'],
+    'gabriel@hackburger.com': ['resetMortyPasswordChallenge'],
+    'felipe@hackburger.com':  ['metaGeostakingChallenge', 'visualGeostakingChallenge'],
   };
   const cks = challenges[row.email];
   if (cks) cks.forEach(c => awardChallenge(fakeReq, c));
@@ -62,7 +62,7 @@ router.get('/change-password', (req: Request, res: Response) => {
   if (!userId) { res.status(401).json({ status: 'error', message: 'Not authenticated' }); return; }
 
   const user = getDb().prepare('SELECT email FROM users WHERE id = ?').get(userId) as { email: string } | undefined;
-  if (user?.email === 'bender@juice-sh.op') {
+  if (user?.email === 'roberto@hackburger.com') {
     awardChallenge(req, 'changeBenderPasswordChallenge');
   }
 
