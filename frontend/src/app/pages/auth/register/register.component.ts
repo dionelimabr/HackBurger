@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
+import { I18nService, Lang } from '../../../core/services/i18n.service';
 
 @Component({
   selector: 'app-register',
@@ -19,6 +20,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   typedText = '';
   showCursor = true;
   burgerPops: { id: number; x: number }[] = [];
+  lang: Lang = 'pt';
 
   private typeInterval: any;
   private cursorInterval: any;
@@ -26,7 +28,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    public i18n: I18nService
   ) {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -40,6 +43,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     const text = 'Crie sua conta e descubra o que está escondido no cardápio. O melhor está reservado para você.';
     let i = 0;
 
+    this.i18n.lang$.subscribe(l => this.lang = l);
     this.cursorInterval = setInterval(() => { this.showCursor = !this.showCursor; }, 530);
 
     setTimeout(() => {
@@ -61,6 +65,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     clearInterval(this.typeInterval);
     clearInterval(this.cursorInterval);
   }
+
+  toggleLang() { this.i18n.toggle(); }
 
   passwordMatchValidator(g: FormGroup) {
     return g.get('password')?.value === g.get('confirmPassword')?.value

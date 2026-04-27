@@ -377,6 +377,53 @@
   a { color: $secondary-color; font-weight: 700; text-decoration: none; &:hover { text-decoration: underline; } }
 }
 
+// ── Language selector (fixed bottom-right) ───────────────────────────────────
+.lang-sel {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 10px;
+  padding: .4rem .7rem;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+  color: $text-light;
+
+  &:hover {
+    background: rgba(255,255,255,.1);
+    border-color: rgba(255,255,255,.2);
+    color: $secondary-color;
+  }
+
+  .lang-flag {
+    display: inline-flex;
+    width: 26px;
+    height: 18px;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.12), 0 1px 3px rgba(0,0,0,.3);
+    flex-shrink: 0;
+    svg { display: block; width: 100%; height: 100%; }
+  }
+
+  .lang-name {
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .01em;
+    white-space: nowrap;
+  }
+
+  .lang-chevron {
+    color: rgba($text-light,.4);
+    flex-shrink: 0;
+  }
+}
+
 // ── Responsive ─────────────────────────────────────────────────────────────
 @media (max-width: $bp-tablet) {
   .auth-page { grid-template-columns: 1fr; }
