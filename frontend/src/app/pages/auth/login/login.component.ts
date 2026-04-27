@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
 
@@ -7,13 +7,46 @@ import { AuthService } from '../../../core/auth/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit, OnDestroy {
   credentials = { email: '', password: '' };
   errorMessage = '';
   showPassword = false;
   loading = false;
 
+  typedText = '';
+  showCursor = true;
+  burgerPops: { id: number; x: number }[] = [];
+
+  private typeInterval: any;
+  private cursorInterval: any;
+
   constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit() {
+    const text = 'A gente sabe qual é o seu ponto fraco. Faça login e peça o seu favorito.';
+    let i = 0;
+
+    this.cursorInterval = setInterval(() => { this.showCursor = !this.showCursor; }, 530);
+
+    setTimeout(() => {
+      this.typeInterval = setInterval(() => {
+        if (i >= text.length) { clearInterval(this.typeInterval); return; }
+        const char = text[i++];
+        this.typedText += char;
+        if (char === ' ' || i === text.length) {
+          const id = Date.now() + Math.random();
+          const x = 10 + Math.random() * 80;
+          this.burgerPops = [...this.burgerPops, { id, x }];
+          setTimeout(() => { this.burgerPops = this.burgerPops.filter(b => b.id !== id); }, 1000);
+        }
+      }, 62);
+    }, 700);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.typeInterval);
+    clearInterval(this.cursorInterval);
+  }
 
   login() {
     this.loading = true;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -8,10 +8,20 @@ import { AuthService } from '../../../core/auth/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
   loading = false;
   error = '';
+  showPassword = false;
+  showConfirm = false;
+  termsAccepted = false;
+
+  typedText = '';
+  showCursor = true;
+  burgerPops: { id: number; x: number }[] = [];
+
+  private typeInterval: any;
+  private cursorInterval: any;
 
   constructor(
     private fb: FormBuilder,
@@ -24,6 +34,32 @@ export class RegisterComponent {
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
     }, { validator: this.passwordMatchValidator });
+  }
+
+  ngOnInit() {
+    const text = 'Crie sua conta e descubra o que está escondido no cardápio. O melhor está reservado para você.';
+    let i = 0;
+
+    this.cursorInterval = setInterval(() => { this.showCursor = !this.showCursor; }, 530);
+
+    setTimeout(() => {
+      this.typeInterval = setInterval(() => {
+        if (i >= text.length) { clearInterval(this.typeInterval); return; }
+        const char = text[i++];
+        this.typedText += char;
+        if (char === ' ' || i === text.length) {
+          const id = Date.now() + Math.random();
+          const x = 10 + Math.random() * 80;
+          this.burgerPops = [...this.burgerPops, { id, x }];
+          setTimeout(() => { this.burgerPops = this.burgerPops.filter(b => b.id !== id); }, 1000);
+        }
+      }, 55);
+    }, 700);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.typeInterval);
+    clearInterval(this.cursorInterval);
   }
 
   passwordMatchValidator(g: FormGroup) {

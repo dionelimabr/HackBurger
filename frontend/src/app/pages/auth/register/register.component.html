@@ -7,32 +7,61 @@
         <span class="logo-mark">&#9650;</span>HACKBURGER
       </a>
 
-      <div class="al-content">
-        <p class="al-tag">// NOVA MISSÃO</p>
-        <h1 class="al-title">Crie sua<br><span>conta.</span></h1>
-        <p class="al-desc">
-          Registre-se gratuitamente e comece a explorar<br>
-          vulnerabilidades em um ambiente seguro e controlado.
-        </p>
+      <div class="al-center">
 
-        <ul class="al-features">
-          <li>
-            <span class="feat-icon">&#128275;</span>
-            <span>Acesso imediato após registro</span>
-          </li>
-          <li>
-            <span class="feat-icon">&#128196;</span>
-            <span>Sem cartão de crédito necessário</span>
-          </li>
-          <li>
-            <span class="feat-icon">&#127881;</span>
-            <span>Ganhe pontos ao completar desafios</span>
-          </li>
-        </ul>
-      </div>
+        <!-- Big burger -->
+        <div class="al-burger">
+          <svg viewBox="0 0 320 260" fill="none" xmlns="http://www.w3.org/2000/svg" class="burger-svg">
+            <ellipse cx="160" cy="248" rx="100" ry="10" fill="rgba(0,0,0,0.35)"/>
+            <path d="M60 118 Q60 60 160 60 Q260 60 260 118 Z" fill="#C0392B"/>
+            <path d="M60 118 Q60 68 160 68 Q260 68 260 118 Z" fill="#E8503A"/>
+            <ellipse cx="130" cy="82" rx="7" ry="4" fill="#A0301E" transform="rotate(-20 130 82)"/>
+            <ellipse cx="160" cy="72" rx="7" ry="4" fill="#A0301E" transform="rotate(5 160 72)"/>
+            <ellipse cx="192" cy="80" rx="7" ry="4" fill="#A0301E" transform="rotate(15 192 80)"/>
+            <ellipse cx="148" cy="92" rx="5" ry="3" fill="#A0301E" transform="rotate(-10 148 92)"/>
+            <ellipse cx="174" cy="90" rx="5" ry="3" fill="#A0301E" transform="rotate(10 174 90)"/>
+            <rect x="55" y="116" width="210" height="14" rx="7" fill="#C0392B"/>
+            <path d="M50 130 Q80 120 110 132 Q140 144 170 130 Q200 116 230 130 Q250 138 270 128 L270 145 Q250 155 230 145 Q200 131 170 145 Q140 159 110 147 Q80 135 50 145 Z" fill="#27AE60"/>
+            <path d="M50 130 Q80 122 110 133 Q140 145 170 131 Q200 117 230 131 Q250 139 270 129" stroke="#1E8449" stroke-width="1.5" fill="none"/>
+            <rect x="62" y="146" width="196" height="18" rx="4" fill="#E74C3C"/>
+            <line x1="100" y1="146" x2="100" y2="164" stroke="#C0392B" stroke-width="1"/>
+            <line x1="140" y1="146" x2="140" y2="164" stroke="#C0392B" stroke-width="1"/>
+            <line x1="180" y1="146" x2="180" y2="164" stroke="#C0392B" stroke-width="1"/>
+            <line x1="220" y1="146" x2="220" y2="164" stroke="#C0392B" stroke-width="1"/>
+            <path d="M58 162 L262 162 L262 178 L278 186 L262 186 L58 186 L42 178 L58 178 Z" fill="#F39C12"/>
+            <path d="M58 162 L262 162 L262 178 L278 186" stroke="#E67E22" stroke-width="1" fill="none"/>
+            <rect x="55" y="186" width="210" height="30" rx="8" fill="#5D3A1A"/>
+            <path d="M60 190 Q100 185 140 192 Q180 199 220 190 Q245 185 260 190" stroke="#7D5A3C" stroke-width="2" fill="none"/>
+            <path d="M60 205 Q95 200 130 207 Q165 214 200 205 Q230 198 260 205" stroke="#7D5A3C" stroke-width="1.5" fill="none"/>
+            <rect x="52" y="214" width="216" height="12" rx="6" fill="#E67E22"/>
+            <path d="M52 224 Q52 250 160 250 Q268 250 268 224 Z" fill="#E67E22"/>
+            <path d="M52 224 Q52 245 160 245 Q268 245 268 224 Z" fill="#F39C12"/>
+          </svg>
+        </div>
 
-      <div class="al-badge">
-        <span>&#128274;</span> Ambiente 100% controlado e seguro
+        <!-- Terminal with typing animation -->
+        <div class="terminal-wrap">
+          <div class="burger-pops-area">
+            <span *ngFor="let b of burgerPops"
+                  class="burger-pop"
+                  [style.left.%]="b.x">&#127828;</span>
+          </div>
+
+          <div class="terminal">
+            <div class="term-header">
+              <div class="term-dots">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="term-title">hackburger — bash</span>
+            </div>
+            <div class="term-body">
+              <span class="term-prompt">$ </span>{{ typedText }}<span
+                class="term-cursor"
+                [style.opacity]="showCursor ? 1 : 0">&#9608;</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -43,7 +72,7 @@
 
       <div class="ar-head">
         <h2>Criar conta</h2>
-        <p>Preencha os dados abaixo para começar.</p>
+        <p>Preencha os dados abaixo para começar sua missão.</p>
       </div>
 
       <div class="error-alert" *ngIf="error">
@@ -53,57 +82,73 @@
 
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
+        <!-- Nome Completo -->
         <div class="field">
-          <label for="rg-name">Nome completo</label>
           <div class="input-wrap">
             <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            <input id="rg-name" type="text" formControlName="name" placeholder="João Silva"
+            <input id="rg-name" type="text" formControlName="name" placeholder="Nome Completo"
                    [class.invalid]="registerForm.get('name')?.touched && registerForm.get('name')?.invalid">
           </div>
         </div>
 
+        <!-- E-mail -->
         <div class="field">
-          <label for="rg-email">E-mail</label>
           <div class="input-wrap">
             <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            <input id="rg-email" type="email" formControlName="email" placeholder="seu@email.com"
+            <input id="rg-email" type="email" formControlName="email" placeholder="Email"
                    [class.invalid]="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
           </div>
         </div>
 
-        <div class="field-row-2">
-          <div class="field">
-            <label for="rg-pass">Senha</label>
-            <div class="input-wrap">
-              <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              <input id="rg-pass" type="password" formControlName="password" placeholder="••••••••"
-                     [class.invalid]="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="rg-confirm">Confirmar</label>
-            <div class="input-wrap">
-              <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <input id="rg-confirm" type="password" formControlName="confirmPassword" placeholder="••••••••"
-                     [class.invalid]="registerForm.get('confirmPassword')?.touched && (registerForm.get('confirmPassword')?.invalid || registerForm.hasError('mismatch'))">
-            </div>
+        <!-- Senha -->
+        <div class="field">
+          <div class="input-wrap">
+            <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input id="rg-pass" [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Senha"
+                   [class.invalid]="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
+            <button type="button" class="eye-btn" (click)="showPassword = !showPassword" tabindex="-1">
+              <svg *ngIf="!showPassword" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg *ngIf="showPassword"  width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
           </div>
         </div>
 
-        <div class="pass-hint" *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched">
-          As senhas não coincidem.
+        <!-- Confirme a Senha -->
+        <div class="field">
+          <div class="input-wrap">
+            <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <input id="rg-confirm" [type]="showConfirm ? 'text' : 'password'" formControlName="confirmPassword" placeholder="Confirme a Senha"
+                   [class.invalid]="registerForm.get('confirmPassword')?.touched && (registerForm.get('confirmPassword')?.invalid || registerForm.hasError('mismatch'))">
+            <button type="button" class="eye-btn" (click)="showConfirm = !showConfirm" tabindex="-1">
+              <svg *ngIf="!showConfirm" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg *ngIf="showConfirm"  width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+          </div>
+          <div class="pass-hint" *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched">
+            As senhas não coincidem.
+          </div>
         </div>
 
-        <button type="submit" class="submit-btn" [disabled]="registerForm.invalid || loading">
-          <span *ngIf="!loading">Criar Conta</span>
+        <!-- Terms -->
+        <label class="terms-row" (click)="termsAccepted = !termsAccepted">
+          <span class="checkmark" [class.checked]="termsAccepted"></span>
+          <span class="terms-text">
+            Li e concordo com os
+            <a href="#" (click)="$event.stopPropagation(); $event.preventDefault()">Termos de Serviço</a>
+            e a
+            <a href="#" (click)="$event.stopPropagation(); $event.preventDefault()">Política de Privacidade</a>
+          </span>
+        </label>
+
+        <button type="submit" class="submit-btn" [disabled]="registerForm.invalid || loading || !termsAccepted">
+          <span *ngIf="!loading">Registrar-se</span>
           <span *ngIf="loading" class="spinner"></span>
         </button>
 
       </form>
 
       <p class="switch-link">
-        Já tem uma conta? <a routerLink="/auth/login">Fazer login</a>
+        Já tem uma conta? <a routerLink="/auth/login">Entrar</a>
       </p>
 
     </div>

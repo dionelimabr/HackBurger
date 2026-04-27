@@ -65,86 +65,120 @@
   }
 }
 
-.al-content {
+// Center column: burger + terminal
+.al-center {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 2rem 0;
-}
-
-.al-tag {
-  font-size: .75rem;
-  font-weight: 700;
-  letter-spacing: .18em;
-  color: $secondary-color;
-  text-transform: uppercase;
-  margin: 0 0 1rem;
-}
-
-.al-title {
-  font-size: clamp(2rem, 3.5vw, 2.8rem);
-  font-weight: 900;
-  line-height: 1.15;
-  color: $text-light;
-  margin: 0 0 1.25rem;
-  letter-spacing: -.02em;
-
-  span {
-    background: linear-gradient(90deg, $primary-color, $secondary-color);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-}
-
-.al-desc {
-  font-size: .93rem;
-  color: rgba($text-light,.52);
-  line-height: 1.7;
-  margin: 0 0 2rem;
-  max-width: 360px;
-}
-
-.al-features {
-  list-style: none;
-  padding: 0; margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: .85rem;
-
-  li {
-    display: flex;
-    align-items: center;
-    gap: .75rem;
-    font-size: .88rem;
-    color: rgba($text-light,.7);
-  }
-
-  .feat-icon {
-    font-size: 1.1rem;
-    flex-shrink: 0;
-  }
-}
-
-.al-badge {
-  display: inline-flex;
   align-items: center;
-  gap: .5rem;
-  font-size: .72rem;
-  color: rgba($text-light,.35);
-  border-top: 1px solid rgba(255,255,255,.06);
-  padding-top: 1.5rem;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
 
+// Burger illustration
+.al-burger {
+  display: flex;
+  justify-content: center;
+}
+.burger-svg {
+  width: 290px;
+  max-width: 90%;
+  filter: drop-shadow(0 24px 48px rgba(#C0392B, .3)) drop-shadow(0 8px 20px rgba(0,0,0,.5));
+  animation: burger-float 3.5s ease-in-out infinite;
+}
+@keyframes burger-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%       { transform: translateY(-12px) rotate(1deg); }
+}
+
+// Terminal
+.terminal-wrap {
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+}
+
+.burger-pops-area {
+  position: absolute;
+  top: -52px;
+  left: 0; right: 0;
+  height: 52px;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.burger-pop {
+  position: absolute;
+  font-size: 1.6rem;
+  line-height: 1;
+  animation: burger-explode 1s ease-out forwards;
+}
+
+@keyframes burger-explode {
+  0%   { opacity: 1; transform: scale(0.3) translateY(0); }
+  40%  { opacity: 1; transform: scale(1.5) translateY(-18px); }
+  70%  { opacity: .8; transform: scale(1.1) translateY(-34px); }
+  100% { opacity: 0; transform: scale(0.7) translateY(-52px); }
+}
+
+.terminal {
+  background: rgba(0,0,0,.7);
+  border: 1px solid rgba($secondary-color,.2);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+.term-header {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .5rem .85rem;
+  background: rgba(255,255,255,.03);
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+
+.term-dots {
+  display: flex;
+  gap: .35rem;
   span {
-    font-family: ui-monospace, monospace;
-    background: rgba(255,255,255,.07);
-    border: 1px solid rgba(255,255,255,.1);
-    border-radius: 4px;
-    padding: .1rem .4rem;
-    font-size: .7rem;
-    color: rgba($text-light,.5);
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    &:nth-child(1) { background: #ff5f57; }
+    &:nth-child(2) { background: #ffbd2e; }
+    &:nth-child(3) { background: #28ca41; }
   }
+}
+
+.term-title {
+  font-size: .7rem;
+  color: rgba($text-light,.3);
+  font-family: ui-monospace, monospace;
+  flex: 1;
+  text-align: center;
+}
+
+.term-body {
+  padding: .85rem 1.1rem 1rem;
+  font-family: ui-monospace, 'Courier New', monospace;
+  font-size: .87rem;
+  color: $secondary-color;
+  min-height: 72px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.term-prompt {
+  color: $primary-color;
+  font-weight: 700;
+  user-select: none;
+}
+
+.term-cursor {
+  color: $secondary-color;
+  transition: opacity .1s;
 }
 
 // ── Right panel ───────────────────────────────────────────────────────────────
