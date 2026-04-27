@@ -39,26 +39,39 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }, { validator: this.passwordMatchValidator });
   }
 
+  t(key: string) { return this.i18n.t(key); }
+
   ngOnInit() {
-    const text = 'Crie sua conta e descubra o que está escondido no cardápio. O melhor está reservado para você.';
-    let i = 0;
-
-    this.i18n.lang$.subscribe(l => this.lang = l);
+    let first = true;
+    this.i18n.lang$.subscribe(l => {
+      this.lang = l;
+      if (first) { first = false; setTimeout(() => this.startTyping(), 700); }
+      else { this.restartTyping(); }
+    });
     this.cursorInterval = setInterval(() => { this.showCursor = !this.showCursor; }, 530);
+  }
 
-    setTimeout(() => {
-      this.typeInterval = setInterval(() => {
-        if (i >= text.length) { clearInterval(this.typeInterval); return; }
-        const char = text[i++];
-        this.typedText += char;
-        if (char === ' ' || i === text.length) {
-          const id = Date.now() + Math.random();
-          const x = 10 + Math.random() * 80;
-          this.burgerPops = [...this.burgerPops, { id, x }];
-          setTimeout(() => { this.burgerPops = this.burgerPops.filter(b => b.id !== id); }, 1000);
-        }
-      }, 55);
-    }, 700);
+  private startTyping() {
+    const text = this.i18n.t('auth.register.terminal');
+    let i = 0;
+    this.typeInterval = setInterval(() => {
+      if (i >= text.length) { clearInterval(this.typeInterval); return; }
+      const char = text[i++];
+      this.typedText += char;
+      if (char === ' ' || i === text.length) {
+        const id = Date.now() + Math.random();
+        const x = 10 + Math.random() * 80;
+        this.burgerPops = [...this.burgerPops, { id, x }];
+        setTimeout(() => { this.burgerPops = this.burgerPops.filter(b => b.id !== id); }, 1000);
+      }
+    }, 55);
+  }
+
+  private restartTyping() {
+    clearInterval(this.typeInterval);
+    this.typedText = '';
+    this.burgerPops = [];
+    this.startTyping();
   }
 
   ngOnDestroy() {

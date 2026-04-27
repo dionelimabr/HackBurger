@@ -29,26 +29,39 @@ export class LoginComponent implements OnInit, OnDestroy {
     public i18n: I18nService
   ) {}
 
+  t(key: string) { return this.i18n.t(key); }
+
   ngOnInit() {
-    const text = 'A gente sabe qual é o seu ponto fraco. Faça login e peça o seu favorito.';
-    let i = 0;
-
-    this.i18n.lang$.subscribe(l => this.lang = l);
+    let first = true;
+    this.i18n.lang$.subscribe(l => {
+      this.lang = l;
+      if (first) { first = false; setTimeout(() => this.startTyping(), 700); }
+      else { this.restartTyping(); }
+    });
     this.cursorInterval = setInterval(() => { this.showCursor = !this.showCursor; }, 530);
+  }
 
-    setTimeout(() => {
-      this.typeInterval = setInterval(() => {
-        if (i >= text.length) { clearInterval(this.typeInterval); return; }
-        const char = text[i++];
-        this.typedText += char;
-        if (char === ' ' || i === text.length) {
-          const id = Date.now() + Math.random();
-          const x = 10 + Math.random() * 80;
-          this.burgerPops = [...this.burgerPops, { id, x }];
-          setTimeout(() => { this.burgerPops = this.burgerPops.filter(b => b.id !== id); }, 1000);
-        }
-      }, 62);
-    }, 700);
+  private startTyping() {
+    const text = this.i18n.t('auth.login.terminal');
+    let i = 0;
+    this.typeInterval = setInterval(() => {
+      if (i >= text.length) { clearInterval(this.typeInterval); return; }
+      const char = text[i++];
+      this.typedText += char;
+      if (char === ' ' || i === text.length) {
+        const id = Date.now() + Math.random();
+        const x = 10 + Math.random() * 80;
+        this.burgerPops = [...this.burgerPops, { id, x }];
+        setTimeout(() => { this.burgerPops = this.burgerPops.filter(b => b.id !== id); }, 1000);
+      }
+    }, 62);
+  }
+
+  private restartTyping() {
+    clearInterval(this.typeInterval);
+    this.typedText = '';
+    this.burgerPops = [];
+    this.startTyping();
   }
 
   ngOnDestroy() {
